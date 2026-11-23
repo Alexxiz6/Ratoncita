@@ -1,0 +1,3100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para Nayu 💜 Mi Ratoncita</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --lilac-1: #f5ebff;
+            --lilac-2: #e9d5ff;
+            --lilac-3: #ddd6fe;
+            --lilac-4: #fae8ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            user-select: none;
+            color: #2e1065;
+            background: radial-gradient(circle at 15% 18%, #f5d0fe 0%, transparent 45%),
+                        radial-gradient(circle at 85% 82%, #c084fc 0%, transparent 48%),
+                        linear-gradient(135deg, var(--lilac-1), var(--lilac-2), var(--lilac-3), var(--lilac-4));
+        }
+
+        .font-script {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .font-handwriting {
+            font-family: 'Caveat', cursive;
+        }
+
+        /* Animaciones aceleradas por GPU */
+        @keyframes floatSlow {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+            50% { transform: translate3d(0, -7px, 0) rotate(0.5deg); }
+        }
+
+        .envelope-float {
+            animation: floatSlow 3.2s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        .envelope-wrapper {
+            perspective: 1100px;
+        }
+
+        .flap-top {
+            transform-origin: top center;
+            transition: transform 0.44s cubic-bezier(0.34, 1.4, 0.64, 1);
+            will-change: transform;
+        }
+
+        .envelope-open .flap-top {
+            transform: rotateX(180deg);
+            z-index: 4;
+        }
+
+        @keyframes sealPulse {
+            0%, 100% { transform: translate3d(-50%, -50%, 0) scale(1); }
+            50% { transform: translate3d(-50%, -50%, 0) scale(1.07); }
+        }
+
+        .wax-seal-pulse {
+            animation: sealPulse 1.8s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        @keyframes gentleBreath {
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(0, -3px, 0); }
+        }
+
+        .characters-idle {
+            animation: gentleBreath 2.8s ease-in-out infinite;
+        }
+
+        @keyframes happyJump {
+            0% { transform: translate3d(0, 0, 0) scale(1); }
+            35% { transform: translate3d(0, -16px, 0) scale(0.96, 1.05); }
+            70% { transform: translate3d(0, 2px, 0) scale(1.03, 0.97); }
+            100% { transform: translate3d(0, 0, 0) scale(1); }
+        }
+
+        .characters-hop {
+            animation: happyJump 0.44s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes tailWag {
+            0%, 100% { transform: rotate(-7deg); }
+            50% { transform: rotate(12deg); }
+        }
+
+        .michi-tail {
+            transform-origin: 56px 76px;
+            animation: tailWag 1.9s ease-in-out infinite;
+        }
+
+        @keyframes woodstockFlutter {
+            0%, 100% { transform: translate3d(32px, 40px, 0) rotate(-3deg); }
+            50% { transform: translate3d(32px, 34px, 0) rotate(5deg); }
+        }
+
+        .woodstock-float {
+            animation: woodstockFlutter 2s ease-in-out infinite;
+        }
+
+        .letter-reveal {
+            opacity: 0;
+            transform: translate3d(0, 18px, 0) scale(0.96);
+            transition: opacity 0.25s ease-out, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .letter-reveal.active {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) scale(1);
+        }
+
+        /* Polaroid 3D doble cara */
+        .polaroid-perspective {
+            perspective: 1000px;
+        }
+
+        .polaroid-inner {
+            position: relative;
+            width: 100%;
+            transition: transform 0.55s cubic-bezier(0.34, 1.35, 0.64, 1);
+            transform-style: preserve-3d;
+        }
+
+        .polaroid-inner.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .polaroid-face {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .polaroid-back {
+            transform: rotateY(180deg);
+        }
+
+        .paper-dots {
+            background-image: radial-gradient(rgba(147, 51, 234, 0.06) 1px, transparent 0);
+            background-size: 14px 14px;
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 5px;
+            height: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(243, 232, 255, 0.5);
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #c084fc;
+            border-radius: 10px;
+        }
+
+        /* Ecualizador musical */
+        @keyframes eqDance {
+            0%, 100% { transform: scaleY(0.35); }
+            50% { transform: scaleY(1); }
+        }
+        .eq-bar {
+            width: 2.5px;
+            height: 14px;
+            background: #7e22ce;
+            border-radius: 999px;
+            transform-origin: bottom;
+            transform: scaleY(0.35);
+        }
+        .music-active .eq-bar:nth-child(1) { animation: eqDance 0.5s ease-in-out infinite; }
+        .music-active .eq-bar:nth-child(2) { animation: eqDance 0.38s ease-in-out infinite 0.12s; }
+        .music-active .eq-bar:nth-child(3) { animation: eqDance 0.55s ease-in-out infinite 0.25s; }
+        .music-active .eq-bar:nth-child(4) { animation: eqDance 0.44s ease-in-out infinite 0.08s; }
+
+        @keyframes bubblePop {
+            0% { opacity: 0; transform: translate3d(0, 6px, 0) scale(0.9); }
+            15% { opacity: 1; transform: translate3d(0, 0, 0) scale(1.02); }
+            85% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+            100% { opacity: 0; transform: translate3d(0, -5px, 0) scale(0.95); }
+        }
+
+        .speech-bubble-anim {
+            animation: bubblePop 2.2s ease-out forwards;
+        }
+
+        @keyframes diceSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            35% { transform: rotate(-18deg) scale(1.12); }
+            70% { transform: rotate(18deg) scale(0.96); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+
+        .dice-rolling {
+            animation: diceSpin 0.35s ease-in-out;
+        }
+
+        @keyframes popTarget {
+            0% { transform: scale(0.35); opacity: 0; }
+            70% { transform: scale(1.08); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .game-target {
+            animation: popTarget 0.18s ease-out;
+        }
+
+        /* Galleta de la fortuna */
+        .cookie-left {
+            transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-origin: center right;
+        }
+        .cookie-right {
+            transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-origin: center left;
+        }
+        .cookie-cracked .cookie-left {
+            transform: translateX(-28px) rotate(-18deg);
+        }
+        .cookie-cracked .cookie-right {
+            transform: translateX(28px) rotate(18deg);
+        }
+        .fortune-slip {
+            transition: opacity 0.32s ease 0.14s, transform 0.38s cubic-bezier(0.22, 1, 0.36, 1) 0.14s;
+            opacity: 0;
+            transform: scaleX(0.4) translateY(6px);
+        }
+        .cookie-cracked .fortune-slip {
+            opacity: 1;
+            transform: scaleX(1) translateY(0);
+        }
+
+        /* Círculo de respiración guiada */
+        .breath-orb {
+            transition: transform 4s ease-in-out, background-color 1s ease;
+            will-change: transform;
+        }
+
+        /* Disolución de preocupaciones */
+        @keyframes dissolveUp {
+            0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0px); }
+            100% { opacity: 0; transform: translateY(-22px) scale(0.92); filter: blur(4px); }
+        }
+        .worry-dissolving {
+            animation: dissolveUp 0.75s ease-out forwards;
+        }
+
+        .tab-panel {
+            display: none;
+            animation: fadePanel 0.18s ease-out;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadePanel {
+            from { opacity: 0; transform: translate3d(0, 4px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+
+        .memory-card {
+            transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
+        }
+        .memory-card:active {
+            transform: scale(0.94);
+        }
+    </style>
+</head>
+<body class="min-h-screen w-full flex flex-col items-center justify-center p-3 sm:p-5 relative overflow-x-hidden">
+
+    <!-- CANVAS DE PARTÍCULAS AMBIENTALES -->
+    <canvas id="ambient-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- AUDIO OPCIONAL PARA ARCHIVOS EXTERNOS -->
+    <audio id="external-audio" preload="none" loop>
+        <source src="the-reason.mp3" type="audio/mpeg">
+        <source src="the-reason.wav" type="audio/wav">
+    </audio>
+
+    <!-- BARRA FLOTANTE SUPERIOR -->
+    <header class="fixed top-3.5 inset-x-0 z-40 px-3 sm:px-5 flex items-center justify-between max-w-2xl mx-auto pointer-events-none">
+        <button id="top-back-btn" type="button" class="pointer-events-auto opacity-0 scale-90 pointer-events-none transition-all duration-200 bg-white/95 hover:bg-white active:scale-95 px-3.5 py-2 rounded-full shadow-sm border border-purple-200 flex items-center gap-1.5 text-purple-900 font-bold text-xs sm:text-sm cursor-pointer">
+            <span>💌</span>
+            <span>Sobre</span>
+        </button>
+
+        <div class="w-2"></div>
+
+        <!-- Botón de Música: "The Reason 🎵" -->
+        <button id="music-toggle-btn" type="button" class="pointer-events-auto bg-white/95 hover:bg-white active:scale-95 px-3.5 py-2 rounded-full shadow-sm border border-purple-200 flex items-center gap-2 transition-all cursor-pointer" title="Tocar melodía">
+            <div id="eq-bars" class="flex items-end gap-0.5 h-3.5">
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+            </div>
+            <span id="music-btn-text" class="text-xs font-bold text-purple-900 whitespace-nowrap">
+                The Reason 🎵
+            </span>
+        </button>
+    </header>
+
+    <!-- =========================================================
+         ESCENA 1: PORTADA CON SNOOPY DE FRENTE, MICHI NARANJA Y SOBRE 3D
+         ========================================================= -->
+    <main id="envelope-stage" class="relative z-10 flex flex-col items-center justify-center w-full max-w-md pt-8 transition-opacity duration-200">
+        
+        <div id="characters-stage" class="relative w-full max-w-[360px] sm:max-w-[400px] h-44 sm:h-48 -mb-5 z-20 cursor-pointer select-none flex items-end justify-center" title="Tócanos 🐾💜">
+            
+            <!-- Etiqueta flotante al costado -->
+            <div id="side-badge" class="absolute right-0 sm:-right-2 top-3 z-30 bg-white/95 px-3 py-1.5 rounded-2xl shadow-sm border border-purple-200 flex items-center gap-1.5 rotate-3 transition-transform duration-200">
+                <span class="text-xs">🐭</span>
+                <span class="text-[11px] font-bold text-purple-900 leading-tight">
+                    Para mi ratoncita,<br>Nayu 💜
+                </span>
+            </div>
+
+            <!-- Burbuja de diálogo dinámica al tocar -->
+            <div id="speech-bubble" class="hidden absolute left-2 top-1 bg-white border-2 border-purple-300 px-3 py-1.5 rounded-2xl shadow-md z-30 pointer-events-none">
+                <p id="speech-text" class="text-xs font-bold text-purple-900 whitespace-nowrap">
+                    ¡Miau miau ratoncita! 🐱🧡
+                </p>
+                <div class="w-2.5 h-2.5 bg-white border-r-2 border-b-2 border-purple-300 rotate-45 mx-auto -mb-3 mt-0.5"></div>
+            </div>
+
+            <!-- Ilustración SVG: Woodstock + Snoopy MIRANDO DE FRENTE + MICHI NARANJA -->
+            <svg id="characters-svg" viewBox="0 0 320 195" class="characters-idle w-72 sm:w-80 h-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="cushionGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#f3e8ff"/>
+                        <stop offset="50%" stop-color="#d8b4fe"/>
+                        <stop offset="100%" stop-color="#a855f7"/>
+                    </linearGradient>
+                    <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#f5d0fe"/>
+                        <stop offset="50%" stop-color="#c084fc"/>
+                        <stop offset="100%" stop-color="#7e22ce"/>
+                    </linearGradient>
+                    <linearGradient id="michiOrangeBody" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#fed7aa"/>
+                        <stop offset="100%" stop-color="#fb923c"/>
+                    </linearGradient>
+                    <linearGradient id="michiOrangeAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#fb923c"/>
+                        <stop offset="100%" stop-color="#ea580c"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- Cojín acolchado lila -->
+                <ellipse cx="160" cy="176" rx="125" ry="16" fill="url(#cushionGrad)" stroke="#7e22ce" stroke-width="2.4"/>
+                <path d="M55 174 Q160 183 265 174" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+
+                <!-- WOODSTOCK a la izquierda -->
+                <g class="woodstock-float">
+                    <path d="M16 14 L11 4 M19 13 L18 2 M22 14 L26 5" stroke="#18181b" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M14 28 C10 28, 8 34, 12 38 C16 42, 24 40, 25 34 C25 30, 22 28, 20 27 C24 25, 27 21, 25 16 C23 12, 16 12, 14 17 C13 20, 14 24, 14 28 Z" fill="#facc15" stroke="#18181b" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M24 18 L34 16 L25 22 Z" fill="#facc15" stroke="#18181b" stroke-width="1.8" stroke-linejoin="round"/>
+                    <circle cx="20" cy="17" r="1.5" fill="#18181b"/>
+                    <path d="M13 31 Q6 27 9 35" fill="#fde047" stroke="#18181b" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M16 40 L15 46 M20 40 L21 46" stroke="#18181b" stroke-width="1.8" stroke-linecap="round"/>
+                </g>
+
+                <!-- SNOOPY MIRANDO DE FRENTE SOSTENIENDO CORAZÓN MORADO -->
+                <g transform="translate(88, 12)">
+                    <path d="M26 42 C10 46, 4 70, 10 88 C14 97, 23 96, 26 85 C29 74, 29 56, 26 42 Z" fill="#18181b" stroke="#18181b" stroke-width="2.2" stroke-linejoin="round"/>
+                    <path d="M86 42 C102 46, 108 70, 102 88 C98 97, 89 96, 86 85 C83 74, 83 56, 86 42 Z" fill="#18181b" stroke="#18181b" stroke-width="2.2" stroke-linejoin="round"/>
+                    <path d="M32 94 C22 112, 22 142, 34 152 C46 158, 66 158, 78 152 C90 142, 90 112, 80 94 Z" fill="#ffffff" stroke="#18181b" stroke-width="2.8" stroke-linejoin="round"/>
+                    <path d="M34 91 Q56 98 78 91 L80 98 Q56 105 32 98 Z" fill="#ef4444" stroke="#18181b" stroke-width="2.4" stroke-linejoin="round"/>
+                    <path d="M26 52 C24 30, 38 16, 56 16 C74 16, 88 30, 86 52 C92 60, 92 76, 80 84 C68 91, 44 91, 32 84 C20 76, 20 60, 26 52 Z" fill="#ffffff" stroke="#18181b" stroke-width="2.8" stroke-linejoin="round"/>
+                    <path d="M38 34 Q43 30 48 34" fill="none" stroke="#18181b" stroke-width="2.1" stroke-linecap="round"/>
+                    <path d="M64 34 Q69 30 74 34" fill="none" stroke="#18181b" stroke-width="2.1" stroke-linecap="round"/>
+                    <ellipse cx="43" cy="45" rx="2.8" ry="4.4" fill="#18181b"/>
+                    <ellipse cx="69" cy="45" rx="2.8" ry="4.4" fill="#18181b"/>
+                    <ellipse cx="56" cy="58" rx="8.5" ry="6" fill="#18181b"/>
+                    <ellipse cx="53.5" cy="56" rx="2.4" ry="1.2" fill="#ffffff" opacity="0.8"/>
+                    <path d="M40 71 Q56 81 72 71" fill="none" stroke="#18181b" stroke-width="2.4" stroke-linecap="round"/>
+                    <ellipse cx="36" cy="153" rx="14" ry="8" fill="#ffffff" stroke="#18181b" stroke-width="2.6"/>
+                    <line x1="32" y1="149" x2="32" y2="156" stroke="#18181b" stroke-width="1.8" stroke-linecap="round"/>
+                    <line x1="39" y1="149" x2="39" y2="156" stroke="#18181b" stroke-width="1.8" stroke-linecap="round"/>
+                    <ellipse cx="76" cy="153" rx="14" ry="8" fill="#ffffff" stroke="#18181b" stroke-width="2.6"/>
+                    <line x1="73" y1="149" x2="73" y2="156" stroke="#18181b" stroke-width="1.8" stroke-linecap="round"/>
+                    <line x1="80" y1="149" x2="80" y2="156" stroke="#18181b" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M56 144 C56 144, 30 126, 30 111 C30 102, 37 97, 44 97 C49 97, 53 100, 56 105 C59 100, 63 97, 68 97 C75 97, 82 102, 82 111 C82 126, 56 144, 56 144 Z" fill="url(#heartGrad)" stroke="#18181b" stroke-width="2.4" stroke-linejoin="round"/>
+                    <path d="M38 108 Q41 103 45 104" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                    <ellipse cx="31" cy="118" rx="8" ry="6.5" fill="#ffffff" stroke="#18181b" stroke-width="2.4"/>
+                    <ellipse cx="81" cy="118" rx="8" ry="6.5" fill="#ffffff" stroke="#18181b" stroke-width="2.4"/>
+                </g>
+
+                <!-- MICHITO NARANJA ATIGRADO A LA DERECHA -->
+                <g transform="translate(206, 68)">
+                    <path class="michi-tail" d="M56 76 Q78 68 74 50 Q71 42 65 48 Q62 56 54 66" fill="url(#michiOrangeAccent)" stroke="#7c2d12" stroke-width="2.3" stroke-linecap="round"/>
+                    <path d="M22 46 C14 58, 14 82, 24 90 C34 95, 52 95, 60 88 C68 80, 66 58, 56 46 Z" fill="url(#michiOrangeBody)" stroke="#7c2d12" stroke-width="2.4" stroke-linejoin="round"/>
+                    <ellipse cx="40" cy="70" rx="13" ry="16" fill="#fff7ed"/>
+                    <polygon points="18,24 14,2 32,14" fill="url(#michiOrangeAccent)" stroke="#7c2d12" stroke-width="2.3" stroke-linejoin="round"/>
+                    <polygon points="19,20 17,8 28,15" fill="#fed7aa"/>
+                    <polygon points="60,24 64,2 46,14" fill="url(#michiOrangeAccent)" stroke="#7c2d12" stroke-width="2.3" stroke-linejoin="round"/>
+                    <polygon points="59,20 61,8 50,15" fill="#fed7aa"/>
+                    <ellipse cx="39" cy="32" rx="25" ry="21" fill="url(#michiOrangeBody)" stroke="#7c2d12" stroke-width="2.4"/>
+                    <path d="M34 12 L34 18 M39 11 L39 19 M44 12 L44 18" stroke="#c2410c" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16 28 L21 29 M57 29 L62 28" stroke="#c2410c" stroke-width="1.8" stroke-linecap="round"/>
+                    <ellipse cx="39" cy="38" rx="11" ry="7.5" fill="#fff7ed"/>
+                    <ellipse cx="29" cy="31" rx="3.4" ry="4.2" fill="#3b0764"/>
+                    <circle cx="28" cy="29.5" r="1.2" fill="#ffffff"/>
+                    <ellipse cx="49" cy="31" rx="3.4" ry="4.2" fill="#3b0764"/>
+                    <circle cx="48" cy="29.5" r="1.2" fill="#ffffff"/>
+                    <ellipse cx="21" cy="36" rx="4" ry="2.2" fill="#fb7185" opacity="0.65"/>
+                    <ellipse cx="57" cy="36" rx="4" ry="2.2" fill="#fb7185" opacity="0.65"/>
+                    <polygon points="37,35 41,35 39,38" fill="#f43f5e"/>
+                    <path d="M34 39 Q36.5 42 39 39 Q41.5 42 44 39" fill="none" stroke="#7c2d12" stroke-width="1.8" stroke-linecap="round"/>
+                    <line x1="10" y1="32" x2="18" y2="33" stroke="#7c2d12" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="10" y1="37" x2="18" y2="36" stroke="#7c2d12" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="60" y1="33" x2="68" y2="32" stroke="#7c2d12" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="60" y1="36" x2="68" y2="37" stroke="#7c2d12" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M24 49 Q39 54 54 49" fill="none" stroke="#7e22ce" stroke-width="3.6" stroke-linecap="round"/>
+                    <circle cx="39" cy="53" r="3.5" fill="#facc15" stroke="#7c2d12" stroke-width="1.4"/>
+                    <ellipse cx="31" cy="88" rx="6.5" ry="4.5" fill="#fff7ed" stroke="#7c2d12" stroke-width="2"/>
+                    <ellipse cx="47" cy="88" rx="6.5" ry="4.5" fill="#fff7ed" stroke="#7c2d12" stroke-width="2"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- SOBRE 3D INTERACTIVO -->
+        <div id="envelope-box" role="button" tabindex="0" aria-label="Abrir cartita para Nayu" class="envelope-wrapper envelope-float cursor-pointer w-full max-w-[355px] sm:max-w-[405px] aspect-[1.45/1] relative select-none group">
+            <div class="w-full h-full paper-dots bg-gradient-to-br from-purple-100 via-fuchsia-50 to-violet-200 rounded-3xl shadow-[0_18px_45px_rgba(88,28,135,0.24)] border-2 border-purple-300/90 relative overflow-hidden transition-transform duration-200 group-hover:scale-[1.02] group-active:scale-[0.98]">
+                
+                <div class="absolute inset-0 bg-purple-300/40"></div>
+
+                <div class="absolute inset-x-4 top-3 bottom-4 bg-white/95 rounded-2xl border border-purple-200 flex items-center justify-center">
+                    <span class="text-purple-400 text-xs font-bold tracking-widest uppercase">Con mucho cariño 💜</span>
+                </div>
+
+                <div class="absolute inset-0 pointer-events-none">
+                    <svg viewBox="0 0 400 276" preserveAspectRatio="none" class="w-full h-full">
+                        <polygon points="0,0 205,145 0,276" fill="#f5ebff" stroke="#d8b4fe" stroke-width="2"/>
+                        <polygon points="400,0 195,145 400,276" fill="#efe6ff" stroke="#d8b4fe" stroke-width="2"/>
+                        <polygon points="0,276 200,128 400,276" fill="#faf5ff" stroke="#d8b4fe" stroke-width="2"/>
+                    </svg>
+                </div>
+
+                <div id="envelope-flap" class="flap-top absolute top-0 left-0 w-full h-[58%] z-20 pointer-events-none">
+                    <svg viewBox="0 0 400 160" preserveAspectRatio="none" class="w-full h-full">
+                        <polygon points="0,0 400,0 200,154" fill="#e9d5ff" stroke="#c084fc" stroke-width="2.5" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+
+                <div id="wax-seal" class="wax-seal-pulse absolute left-1/2 top-[47%] z-30 rounded-full transition-opacity duration-200 shadow-lg">
+                    <div class="w-15 h-15 sm:w-16 sm:h-16 p-3 rounded-full bg-gradient-to-tr from-purple-900 via-violet-600 to-fuchsia-400 border-2 border-white/95 flex items-center justify-center">
+                        <span class="text-2xl sm:text-3xl">💜</span>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-3.5 inset-x-0 z-20 text-center pointer-events-none px-3">
+                    <p class="font-script text-2xl sm:text-3xl text-purple-950 font-bold leading-tight">
+                        Para: Nayu (mi ratoncita) 💜
+                    </p>
+                    <p class="text-[11px] sm:text-xs text-purple-700 font-bold mt-0.5 tracking-wide">
+                        Toca el sello para abrir tu cartita ⭐
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- =========================================================
+         ESCENA 2: CARTA ABIERTA CON PESTAÑAS INTERACTIVAS
+         ========================================================= -->
+    <section id="letter-stage" class="fixed inset-0 z-30 flex items-center justify-center pt-14 pb-3 px-3 sm:px-5 opacity-0 pointer-events-none transition-opacity duration-250 bg-purple-950/55">
+        
+        <div id="letter-card" class="letter-reveal w-full max-w-xl bg-gradient-to-b from-white via-purple-50 to-fuchsia-50 rounded-3xl shadow-[0_22px_60px_rgba(59,7,100,0.42)] border-2 border-purple-200 overflow-hidden flex flex-col max-h-[89vh]">
+            
+            <!-- Encabezado -->
+            <div class="bg-gradient-to-r from-purple-200 via-fuchsia-200/90 to-violet-200 px-4 sm:px-6 py-3 flex items-center justify-between border-b border-purple-200 shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-2xl bg-white border border-purple-200 flex items-center justify-center text-xl shrink-0">
+                        🐭
+                    </div>
+                    <div>
+                        <h1 class="font-script text-2xl sm:text-3xl text-purple-950 font-bold leading-none">
+                            Para Nayu 💜
+                        </h1>
+                        <p class="text-[11px] font-bold text-purple-700 mt-0.5">
+                            Mi ratoncita preciosa ⭐
+                        </p>
+                    </div>
+                </div>
+
+                <span class="text-xs font-bold text-purple-900 bg-white/90 px-3 py-1 rounded-full border border-purple-200">
+                    Solo para ti 💜
+                </span>
+            </div>
+
+            <!-- BARRA DE PESTAÑAS -->
+            <nav class="px-3 sm:px-5 pt-2.5 pb-2 bg-white border-b border-purple-200/80 flex items-center gap-1.5 overflow-x-auto custom-scroll shrink-0">
+                <button type="button" data-tab="tab-carta" class="tab-btn active px-3 py-1.5 rounded-full text-xs font-bold bg-purple-800 text-white whitespace-nowrap transition-colors cursor-pointer">
+                    💌 Cartita
+                </button>
+                <button type="button" data-tab="tab-calma" class="tab-btn px-3 py-1.5 rounded-full text-xs font-bold bg-purple-100 text-purple-900 hover:bg-purple-200 whitespace-nowrap transition-colors cursor-pointer">
+                    🌿 Calma
+                </button>
+                <button type="button" data-tab="tab-moods" class="tab-btn px-3 py-1.5 rounded-full text-xs font-bold bg-purple-100 text-purple-900 hover:bg-purple-200 whitespace-nowrap transition-colors cursor-pointer">
+                    🌙 Tus moods
+                </button>
+                <button type="button" data-tab="tab-sorpresas" class="tab-btn px-3 py-1.5 rounded-full text-xs font-bold bg-purple-100 text-purple-900 hover:bg-purple-200 whitespace-nowrap transition-colors cursor-pointer">
+                    🎁 Sorpresas
+                </button>
+                <button type="button" data-tab="tab-jugar" class="tab-btn px-3 py-1.5 rounded-full text-xs font-bold bg-purple-100 text-purple-900 hover:bg-purple-200 whitespace-nowrap transition-colors cursor-pointer">
+                    🎮 Jugar y retos
+                </button>
+                <button type="button" data-tab="tab-recuerdos" class="tab-btn px-3 py-1.5 rounded-full text-xs font-bold bg-purple-100 text-purple-900 hover:bg-purple-200 whitespace-nowrap transition-colors cursor-pointer">
+                    📸 Recuerdos
+                </button>
+            </nav>
+
+            <!-- CONTENIDO DE PESTAÑAS -->
+            <div class="p-4 sm:p-6 overflow-y-auto custom-scroll flex-1 text-purple-950 space-y-4">
+                
+                <!-- ==================== 1. PESTAÑA CARTITA (SOLO COSAS BONITAS) ==================== -->
+                <div id="tab-carta" class="tab-panel active space-y-4">
+                    <div class="space-y-3 bg-white rounded-2xl p-4 sm:p-5 border border-purple-100">
+                        <p class="font-handwriting text-2xl sm:text-3xl text-purple-800 font-bold">
+                            Hola, mi ratoncita 💜
+                        </p>
+                        <p class="text-sm sm:text-[15px] leading-relaxed text-slate-700 font-medium">
+                            Quería armarte este rinconcito solo para ti, Nayu, para recordarte lo muchísimo que <span class="text-purple-900 font-bold bg-purple-100 px-1.5 py-0.5 rounded-md">me encantas</span>. Me fascina tu sonrisa, tus ojitos lindos, tu forma de ser y lo increíble que la paso contigo cada vez que nos reímos de cualquier tontería.
+                        </p>
+                        <p class="text-sm sm:text-[15px] leading-relaxed text-slate-700 font-medium">
+                            Contigo todo se siente más bonito y especial; siempre me alegras los días y ya quiero que llegue la siguiente vez que nos veamos para tenerte cerquita, <span class="text-fuchsia-700 font-bold">mi ratoncita preciosa</span>.
+                        </p>
+                    </div>
+
+                    <!-- Notitas secuenciales -->
+                    <div class="bg-gradient-to-r from-purple-100 via-fuchsia-100/90 to-violet-100 rounded-2xl p-4 sm:p-5 border border-purple-200 space-y-2">
+                        <div class="flex items-center justify-between gap-2">
+                            <span id="note-counter-label" class="text-[11px] font-bold uppercase tracking-wider text-purple-900">
+                                Notita 1 de 7 ⭐
+                            </span>
+                            <button id="next-reason-btn" type="button" class="text-xs font-bold bg-white hover:bg-purple-50 active:scale-95 text-purple-900 px-3.5 py-1.5 rounded-full border border-purple-200 shadow-2xs transition-transform cursor-pointer">
+                                Otra notita 💌
+                            </button>
+                        </div>
+                        <p id="reason-text" class="font-handwriting text-xl sm:text-2xl text-purple-950 font-bold leading-snug transition-opacity duration-150 pt-1">
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ==================== 2. PESTAÑA: 🌿 CALMA Y PAZ ==================== -->
+                <div id="tab-calma" class="tab-panel space-y-4">
+                    <div class="bg-gradient-to-br from-violet-100/90 via-purple-50 to-fuchsia-50 rounded-2xl p-4 sm:p-5 border border-purple-200 text-center space-y-3">
+                        <div>
+                            <p class="text-[11px] font-bold uppercase tracking-wider text-purple-700">Tu espacio seguro 🌿</p>
+                            <h2 class="text-base sm:text-lg font-bold text-purple-950">Respira despacio, quiero que estés en paz</h2>
+                            <p class="text-xs text-slate-600 mt-0.5">
+                                Si te sientes desganada, triste o con ansiedad, tómate un minutito aquí sin prisa.
+                            </p>
+                        </div>
+
+                        <div class="py-3 flex flex-col items-center justify-center">
+                            <div class="relative w-36 h-36 flex items-center justify-center">
+                                <div class="absolute inset-0 rounded-full border-2 border-dashed border-purple-300/80"></div>
+                                <div id="breath-orb" class="breath-orb w-20 h-20 rounded-full bg-gradient-to-tr from-purple-500 via-violet-400 to-fuchsia-300 flex items-center justify-center shadow-md">
+                                    <span id="breath-seconds" class="text-white font-bold text-lg">4s</span>
+                                </div>
+                            </div>
+                            <p id="breath-instruction" class="font-handwriting text-2xl text-purple-950 font-bold mt-2">
+                                Lista cuando tú quieras 💜
+                            </p>
+                        </div>
+
+                        <button id="btn-toggle-breath" type="button" class="px-5 py-2 rounded-full bg-purple-800 hover:bg-purple-900 active:scale-95 text-white text-xs font-bold shadow-sm transition-transform cursor-pointer">
+                            🌿 Empezar respiración (4-4-4)
+                        </button>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-4 border border-purple-100 space-y-3">
+                        <p class="text-xs font-bold uppercase tracking-wider text-purple-700">Si hoy te sientes...</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" data-calm="desganada" class="calm-btn bg-purple-50 hover:bg-purple-100 active:scale-95 p-3 rounded-2xl border border-purple-200 text-left flex items-center gap-2 transition-transform cursor-pointer">
+                                <span class="text-xl">🥀</span>
+                                <span class="text-xs font-bold text-purple-950">Desganada</span>
+                            </button>
+                            <button type="button" data-calm="triste" class="calm-btn bg-fuchsia-50 hover:bg-fuchsia-100 active:scale-95 p-3 rounded-2xl border border-purple-200 text-left flex items-center gap-2 transition-transform cursor-pointer">
+                                <span class="text-xl">🌧︄</span>
+                                <span class="text-xs font-bold text-purple-950">Triste o melancólica</span>
+                            </button>
+                            <button type="button" data-calm="ansiedad" class="calm-btn bg-violet-50 hover:bg-violet-100 active:scale-95 p-3 rounded-2xl border border-purple-200 text-left flex items-center gap-2 transition-transform cursor-pointer">
+                                <span class="text-xl">🌀</span>
+                                <span class="text-xs font-bold text-purple-950">Con ansiedad</span>
+                            </button>
+                            <button type="button" data-calm="paz" class="calm-btn bg-indigo-50 hover:bg-indigo-100 active:scale-95 p-3 rounded-2xl border border-purple-200 text-left flex items-center gap-2 transition-transform cursor-pointer">
+                                <span class="text-xl">🕊︄</span>
+                                <span class="text-xs font-bold text-purple-950">Necesito paz</span>
+                            </button>
+                        </div>
+
+                        <div class="rounded-2xl bg-purple-50/90 border border-purple-200 p-3.5">
+                            <div class="flex items-center justify-between gap-2 mb-1">
+                                <span id="calm-tag" class="text-[11px] font-bold uppercase tracking-wider text-purple-700">
+                                    Para tu tranquilidad 💜
+                                </span>
+                                <button id="btn-next-calm-msg" type="button" class="hidden text-[11px] font-bold text-purple-900 bg-white px-2.5 py-0.5 rounded-full border border-purple-200 cursor-pointer">
+                                    Leer otro ⭐
+                                </button>
+                            </div>
+                            <p id="calm-text" class="font-handwriting text-2xl text-purple-950 font-bold leading-snug">
+                                “No tienes que resolver todo hoy, Nayu. Lo más importante para mí es que estés tranquila y en paz. 💜
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-4 border border-purple-100 space-y-2.5">
+                        <div>
+                            <p class="text-[11px] font-bold uppercase tracking-wider text-purple-600">Desahogo ligero ⭐</p>
+                            <h3 class="text-sm font-bold text-purple-950">Escribe lo que te pesa y déjalo ir</h3>
+                        </div>
+                        <textarea id="worry-input" rows="2" maxlength="180" placeholder="Escribe aquí eso que te tiene inquieta o cansada..."
+                            class="w-full rounded-xl bg-purple-50/70 border border-purple-200 focus:border-purple-500 focus:outline-none p-2.5 text-xs sm:text-sm text-purple-950 resize-none"></textarea>
+                        <div class="flex items-center justify-between gap-2">
+
+                            <button id="btn-release-worry" type="button" class="px-4 py-1.5 rounded-full bg-fuchsia-600 hover:bg-fuchsia-700 active:scale-95 text-white text-xs font-bold shrink-0 cursor-pointer">
+                                Dejarlo ir 🍃
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== 3. PESTAÑA TUS MOODS ==================== -->
+                <div id="tab-moods" class="tab-panel space-y-4">
+                    <div class="bg-white rounded-2xl p-4 border border-purple-100 space-y-3.5">
+                        <div id="mood-response-box" class="bg-gradient-to-br from-purple-100/90 via-fuchsia-50 to-violet-100/80 rounded-2xl p-4 border border-purple-200">
+                            <div class="flex items-center justify-between gap-2 mb-1">
+                                <span id="mood-response-tag" class="text-[11px] font-bold uppercase tracking-wider text-purple-800">
+                                    Elige uno abajo 💜
+                                </span>
+                                <button id="btn-another-mood-msg" type="button" class="hidden text-[11px] font-bold text-purple-900 bg-white hover:bg-purple-50 active:scale-95 px-3 py-1 rounded-full border border-purple-200 cursor-pointer">
+                                    Otro mensajito ⭐
+                                </button>
+                            </div>
+                            <p id="mood-response-text" class="font-handwriting text-2xl text-purple-950 font-bold leading-snug">
+                                Toca cómo andas ahorita y lee lo que te dejé aquí, Nayu.
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="text-xs font-bold uppercase tracking-wider text-purple-600 mb-2">¿Cómo andas ahorita, ratoncita?</p>
+                            <div class="grid grid-cols-2 gap-2.5" id="moods-grid">
+                                <button type="button" data-mood="pensando" class="mood-btn bg-gradient-to-br from-fuchsia-100 to-white hover:from-fuchsia-200/80 active:scale-95 p-3.5 rounded-2xl border border-purple-200 transition-transform cursor-pointer flex items-center gap-2.5">
+                                    <span class="text-2xl shrink-0">💭</span>
+                                    <span class="text-xs sm:text-sm font-bold text-purple-950 leading-tight">Pensando en mí</span>
+                                </button>
+
+                                <button type="button" data-mood="cansada" class="mood-btn bg-gradient-to-br from-purple-100 to-white hover:from-purple-200/80 active:scale-95 p-3.5 rounded-2xl border border-purple-200 transition-transform cursor-pointer flex items-center gap-2.5">
+                                    <span class="text-2xl shrink-0">😴</span>
+                                    <span class="text-xs sm:text-sm font-bold text-purple-950 leading-tight">Cansada</span>
+                                </button>
+
+                                <button type="button" data-mood="antojo" class="mood-btn bg-gradient-to-br from-amber-100/80 to-white hover:from-amber-200/70 active:scale-95 p-3.5 rounded-2xl border border-purple-200 transition-transform cursor-pointer flex items-center gap-2.5">
+                                    <span class="text-2xl shrink-0">🍫</span>
+                                    <span class="text-xs sm:text-sm font-bold text-purple-950 leading-tight">Con antojo</span>
+                                </button>
+
+                                <button type="button" data-mood="aburrida" class="mood-btn bg-gradient-to-br from-violet-100 to-white hover:from-violet-200/80 active:scale-95 p-3.5 rounded-2xl border border-purple-200 transition-transform cursor-pointer flex items-center gap-2.5">
+                                    <span class="text-2xl shrink-0">🥱</span>
+                                    <span class="text-xs sm:text-sm font-bold text-purple-950 leading-tight">Aburrida</span>
+                                </button>
+
+                                <button type="button" data-mood="mimos" class="mood-btn bg-gradient-to-br from-pink-100 to-white hover:from-pink-200/80 active:scale-95 p-3.5 rounded-2xl border border-purple-200 transition-transform cursor-pointer flex items-center gap-2.5">
+                                    <span class="text-2xl shrink-0">🫂</span>
+                                    <span class="text-xs sm:text-sm font-bold text-purple-950 leading-tight">Con ganas de cariño</span>
+                                </button>
+
+                                <button type="button" data-mood="feliz" class="mood-btn bg-gradient-to-br from-yellow-100/80 to-white hover:from-yellow-200/70 active:scale-95 p-3.5 rounded-2xl border border-purple-200 transition-transform cursor-pointer flex items-center gap-2.5">
+                                    <span class="text-2xl shrink-0">⭐</span>
+                                    <span class="text-xs sm:text-sm font-bold text-purple-950 leading-tight">De buen humor</span>
+                                </button>
+
+                                <button type="button" data-mood="estresada" class="mood-btn bg-gradient-to-br from-indigo-100 to-white hover:from-indigo-200/80 active:scale-95 p-3.5 rounded-2xl border border-purple-200 transition-transform cursor-pointer flex items-center gap-2.5">
+                                    <span class="text-2xl shrink-0">😤</span>
+                                    <span class="text-xs sm:text-sm font-bold text-purple-950 leading-tight">Estresada</span>
+                                </button>
+
+                                <button type="button" data-mood="motivada" class="mood-btn bg-gradient-to-br from-purple-100 to-white hover:from-purple-200/80 active:scale-95 p-3.5 rounded-2xl border border-purple-200 transition-transform cursor-pointer flex items-center gap-2.5">
+                                    <span class="text-2xl shrink-0"></span>
+                                    <span class="text-xs sm:text-sm font-bold text-purple-950 leading-tight">Motivada</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== 4. PESTAÑA SORPRESAS + GALLETA DE LA FORTUNA ==================== -->
+                <div id="tab-sorpresas" class="tab-panel space-y-4">
+                    <div class="bg-white rounded-2xl p-4 border border-purple-100">
+                        <div class="flex items-center justify-between mb-1">
+                            <div>
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-purple-600">Para la siguiente vez que nos veamos</p>
+                                <h2 class="text-base font-bold text-purple-950">Abre un sobrecito sorpresa</h2>
+                            </div>
+                            <button id="btn-shuffle-surprises" type="button" class="text-xs font-bold bg-purple-100 hover:bg-purple-200 text-purple-900 px-3 py-1.5 rounded-full transition active:scale-95 cursor-pointer">
+                                Mezclar otros 🎲
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-3">
+                            El que destapes queda pendiente para la siguiente vez que nos veamos, ratoncita.
+                        </p>
+                        <div id="surprises-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5"></div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-amber-50/90 via-purple-50 to-fuchsia-50 rounded-2xl p-4 border border-purple-200">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <div>
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-amber-700">Galletita de la fortuna 🥠</p>
+                                <h3 class="text-sm font-bold text-purple-950">Toca la galleta para partirla</h3>
+                            </div>
+                            <button id="btn-new-cookie" type="button" class="px-3 py-1.5 rounded-full bg-purple-800 hover:bg-purple-900 active:scale-95 text-white text-xs font-bold cursor-pointer">
+                                Nueva galleta 🥠
+                            </button>
+                        </div>
+
+                        <div id="fortune-cookie-stage" role="button" tabindex="0" class="relative w-full min-h-[126px] rounded-2xl bg-white/85 border border-amber-200/80 flex flex-col items-center justify-center p-3 cursor-pointer overflow-hidden">
+                            <div id="cookie-svg-wrap" class="flex items-center justify-center">
+                                <svg viewBox="0 0 220 100" class="w-44 h-20 overflow-visible">
+                                    <defs>
+                                        <linearGradient id="cookieGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#fde68a"/>
+                                            <stop offset="50%" stop-color="#f59e0b"/>
+                                            <stop offset="100%" stop-color="#b45309"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <g class="cookie-left">
+                                        <path d="M110 18 C72 12, 34 38, 36 70 C38 86, 62 90, 82 76 C96 66, 106 46, 110 18 Z" fill="url(#cookieGold)" stroke="#92400e" stroke-width="2.2" stroke-linejoin="round"/>
+                                        <path d="M52 68 Q75 56 96 34" fill="none" stroke="#fef3c7" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+                                    </g>
+                                    <g class="cookie-right">
+                                        <path d="M110 18 C148 12, 186 38, 184 70 C182 86, 158 90, 138 76 C124 66, 114 46, 110 18 Z" fill="url(#cookieGold)" stroke="#92400e" stroke-width="2.2" stroke-linejoin="round"/>
+                                        <path d="M168 68 Q145 56 124 34" fill="none" stroke="#fef3c7" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <div id="fortune-slip-box" class="fortune-slip w-full max-w-sm bg-white border-x-4 border-purple-600 shadow-md px-3.5 py-2 text-center mt-1">
+                                <p id="cookie-message" class="font-handwriting text-xl sm:text-2xl text-purple-950 font-bold leading-tight"></p>
+                                <p id="cookie-lucky-numbers" class="text-[10px] font-bold tracking-widest text-purple-600 uppercase mt-1"></p>
+                            </div>
+
+                            <p id="cookie-tap-hint" class="text-[11px] font-bold text-amber-800 mt-1">
+                                👆 Toca la galleta para ver tu suerte
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-4 border border-purple-100">
+                        <div class="flex items-center justify-between gap-2 mb-2.5">
+                            <div>
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-purple-600">Siguiente salida</p>
+                                <h3 class="text-base font-bold text-purple-950">Idea al azar para la siguiente vez que nos veamos</h3>
+                            </div>
+                            <button id="btn-roll-plan" type="button" class="px-3.5 py-2 rounded-xl bg-purple-800 hover:bg-purple-900 text-white text-xs font-bold flex items-center gap-1.5 active:scale-95 transition cursor-pointer">
+                                <span id="dice-icon" class="inline-block text-base">🎲</span>
+                                <span>Tirar dado</span>
+                            </button>
+                        </div>
+                        <div class="rounded-2xl bg-purple-50 border border-purple-200 p-3.5 flex items-center gap-3">
+                            <div id="plan-emoji" class="w-11 h-11 rounded-2xl bg-white border border-purple-200 flex items-center justify-center text-2xl shrink-0"></div>
+                            <div>
+                                <p id="plan-title" class="font-bold text-purple-950 text-sm"></p>
+                                <p id="plan-desc" class="text-xs text-slate-600 mt-0.5"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-4 border border-purple-100">
+                        <p class="text-[11px] font-bold uppercase tracking-wider text-purple-600">Lista de antojos</p>
+                        <h3 class="text-base font-bold text-purple-950 mb-2">Apunta lo que quieras para la siguiente vez que nos veamos</h3>
+                        <form id="wish-form" class="flex gap-2 mb-2.5">
+                            <input id="wish-input" type="text" maxlength="90" placeholder="Ej. Gomitas ácidas, helado o ir por algo..."
+                                class="flex-1 rounded-xl bg-purple-50/70 border border-purple-200 focus:border-purple-500 focus:outline-none px-3 py-2 text-xs sm:text-sm text-purple-950" />
+                            <button type="submit" class="px-3.5 py-2 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-700 text-white text-xs sm:text-sm font-bold active:scale-95 transition shrink-0 cursor-pointer">
+                                Guardar
+                            </button>
+                        </form>
+                        <ul id="wish-list" class="space-y-1.5 max-h-36 overflow-y-auto custom-scroll pr-1"></ul>
+                    </div>
+                </div>
+
+                <!-- ==================== 5. PESTAÑA JUGAR Y RETOS (RETOS OCULTOS AL AZAR) ==================== -->
+                <div id="tab-jugar" class="tab-panel space-y-4">
+                    
+                    <div class="bg-gradient-to-r from-orange-50 via-amber-50 to-purple-50 rounded-2xl p-4 border border-orange-200 flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <button id="michi-corner-avatar" type="button" class="w-16 h-16 rounded-2xl bg-white border-2 border-orange-300 flex items-center justify-center shrink-0 active:scale-90 transition-transform cursor-pointer" title="Acariciar al michi naranja">
+                                <svg viewBox="0 0 80 80" class="w-14 h-14">
+                                    <polygon points="18,30 12,10 32,20" fill="#fb923c" stroke="#7c2d12" stroke-width="2.2" stroke-linejoin="round"/>
+                                    <polygon points="62,30 68,10 48,20" fill="#fb923c" stroke="#7c2d12" stroke-width="2.2" stroke-linejoin="round"/>
+                                    <ellipse cx="40" cy="44" rx="26" ry="22" fill="#fed7aa" stroke="#7c2d12" stroke-width="2.4"/>
+                                    <path d="M35 23 L35 29 M40 22 L40 30 M45 23 L45 29" stroke="#c2410c" stroke-width="2" stroke-linecap="round"/>
+                                    <ellipse cx="40" cy="50" rx="12" ry="8" fill="#fff7ed"/>
+                                    <path d="M27 42 Q31 38 35 42 M45 42 Q49 38 53 42" fill="none" stroke="#3b0764" stroke-width="2.5" stroke-linecap="round"/>
+                                    <ellipse cx="22" cy="48" rx="4" ry="2.2" fill="#fb7185" opacity="0.65"/>
+                                    <ellipse cx="58" cy="48" rx="4" ry="2.2" fill="#fb7185" opacity="0.65"/>
+                                    <polygon points="38,47 42,47 40,50" fill="#f43f5e"/>
+                                    <path d="M35 51 Q37.5 54 40 51 Q42.5 54 45 51" fill="none" stroke="#7c2d12" stroke-width="1.8" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                            <div>
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-orange-700">Tu Michi Naranja 🐱🧡</p>
+                                <p id="michi-corner-msg" class="text-xs sm:text-sm font-bold text-purple-950 leading-snug mt-0.5">
+                                    Tócame la cabecita para darme mimos, Nayu.
+                                </p>
+                                <span id="purr-counter" class="inline-block mt-1 text-[11px] font-bold text-orange-800 bg-white px-2.5 py-0.5 rounded-full border border-orange-200">
+                                    0 mimos 🧡
+                                </span>
+                            </div>
+                        </div>
+                        <button id="pet-michi-btn" type="button" class="px-3 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 active:scale-95 text-white text-xs font-bold shrink-0 cursor-pointer">
+                            Acariciar 🐾
+                        </button>
+                    </div>
+
+                    <!-- Apartado de Reto Misterioso (Oculto hasta que lo toque o pierda) -->
+                    <div id="penalty-card" class="bg-gradient-to-r from-purple-900 via-violet-800 to-fuchsia-800 text-white rounded-2xl p-4 border border-purple-400/50 space-y-2.5">
+                        <div class="flex items-center justify-between gap-2">
+                            <span id="penalty-badge" class="text-[11px] font-bold uppercase tracking-wider bg-white/15 px-2.5 py-0.5 rounded-full text-fuchsia-200">
+                                🔒 Reto secreto al azar
+                            </span>
+                            <button id="btn-roll-penalty" type="button" class="text-xs font-bold bg-white text-purple-950 hover:bg-purple-100 active:scale-95 px-3 py-1 rounded-full cursor-pointer">
+                                Sacar reto al azar 🎲
+                            </button>
+                        </div>
+
+                        <div id="penalty-locked-box" role="button" tabindex="0" class="rounded-xl bg-white/10 hover:bg-white/15 border border-dashed border-fuchsia-300/60 p-3.5 text-center cursor-pointer transition-colors">
+                            <p class="text-sm font-bold text-fuchsia-100">
+                                🎁 Hay un reto sorpresa escondido aquí...
+                            </p>
+                            <p class="text-xs text-purple-200 mt-1">
+                                Toca aquí para descubrir tu reto al azar (o juega abajo; si pierdes, se destapa solo 😈).
+                            </p>
+                        </div>
+
+                        <p id="penalty-text" class="hidden font-handwriting text-2xl sm:text-[26px] text-white font-bold leading-snug"></p>
+
+                        <p class="text-[11px] text-purple-200">
+                            Meta para salvarte: hacer <strong>mínimo 60 puntos</strong> en los quesitos o ganar el memorama en máximo <strong>10 intentos</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Minijuego 1: Atrapa los quesitos -->
+                    <div class="bg-white rounded-2xl p-4 border border-purple-100">
+                        <div class="flex items-center justify-between gap-2 mb-1.5">
+                            <div>
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-purple-600">Juego 1  Mínimo 60 pts</p>
+                                <h3 class="text-base font-bold text-purple-950">Atrapa los quesitos 🧀</h3>
+                            </div>
+                            <div class="flex items-center gap-1.5 text-xs font-bold">
+                                <span class="px-2.5 py-1 rounded-full bg-purple-100 text-purple-900">Puntos: <span id="game-score">0</span>/60</span>
+                                <span class="px-2.5 py-1 rounded-full bg-fuchsia-100 text-fuchsia-900"><span id="game-time">22</span>s</span>
+                            </div>
+                        </div>
+                        <p id="game-status-text" class="text-xs text-slate-600 mb-2.5">
+                            Si haces menos de 60 puntos antes que acabe el tiempo, ¡se destapa tu reto secreto!
+                        </p>
+                        <div id="game-arena" class="relative w-full h-44 rounded-2xl bg-gradient-to-br from-purple-100 via-fuchsia-50 to-violet-100 border-2 border-dashed border-purple-300 overflow-hidden flex items-center justify-center">
+                            <button id="btn-start-game" type="button" class="px-5 py-2.5 rounded-full bg-purple-800 hover:bg-purple-900 text-white text-xs sm:text-sm font-bold active:scale-95 transition z-10 cursor-pointer">
+                                🎮 Empezar reto (60 pts)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Minijuego 2: Memorama -->
+                    <div class="bg-white rounded-2xl p-4 border border-purple-100">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <div>
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-purple-600">Juego 2  Máx 10 intentos</p>
+                                <h3 class="text-base font-bold text-purple-950">Memorama de ratoncita 🃏</h3>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold text-purple-800 bg-purple-100 px-2.5 py-1 rounded-full">
+                                    Intentos: <span id="memory-tries">0</span>/10
+                                </span>
+                                <button id="btn-reset-memory" type="button" class="text-xs font-bold bg-purple-100 hover:bg-purple-200 text-purple-900 px-2.5 py-1 rounded-full cursor-pointer">
+                                    Reiniciar
+                                </button>
+                            </div>
+                        </div>
+                        <p id="memory-status" class="text-xs text-slate-600 mb-2.5">
+                            Encuentra las 6 parejas en 10 intentos o menos para salvarte del reto.
+                        </p>
+                        <div id="memory-grid" class="grid grid-cols-4 gap-2"></div>
+                    </div>
+
+                    <!-- Pizarrita creativa -->
+                    <div class="bg-white rounded-2xl p-4 border border-purple-100 space-y-2.5">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-purple-600">Pizarrita creativa</p>
+                                <h2 class="text-base font-bold text-purple-950">Dibuja o deja un mensajito 🎨</h2>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <button id="btn-undo-pad" type="button" class="px-2.5 py-1 rounded-full bg-purple-100 hover:bg-purple-200 text-purple-900 text-xs font-bold cursor-pointer">
+                                    ↄ Deshacer
+                                </button>
+                                <button id="btn-clear-pad" type="button" class="px-2.5 py-1 rounded-full bg-purple-100 hover:bg-purple-200 text-purple-900 text-xs font-bold cursor-pointer">
+                                    🗑 Limpiar
+                                </button>
+                                <button id="btn-save-pad" type="button" class="px-2.5 py-1 rounded-full bg-purple-800 hover:bg-purple-900 text-white text-xs font-bold cursor-pointer">
+                                    💾 Guardar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap items-center justify-between gap-2 bg-purple-50/80 p-2 rounded-2xl border border-purple-200/80">
+                            <div class="flex flex-wrap items-center gap-1.5" id="color-palette">
+                                <button type="button" data-color="#7e22ce" title="Morado" class="color-dot w-6 h-6 rounded-full bg-[#7e22ce] ring-2 ring-offset-1 ring-purple-500 cursor-pointer"></button>
+                                <button type="button" data-color="#db2777" title="Rosa" class="color-dot w-6 h-6 rounded-full bg-[#db2777] cursor-pointer"></button>
+                                <button type="button" data-color="#dc2626" title="Rojo" class="color-dot w-6 h-6 rounded-full bg-[#dc2626] cursor-pointer"></button>
+                                <button type="button" data-color="#ea580c" title="Naranja" class="color-dot w-6 h-6 rounded-full bg-[#ea580c] cursor-pointer"></button>
+                                <button type="button" data-color="#eab308" title="Amarillo" class="color-dot w-6 h-6 rounded-full bg-[#eab308] cursor-pointer"></button>
+                                <button type="button" data-color="#16a34a" title="Verde" class="color-dot w-6 h-6 rounded-full bg-[#16a34a] cursor-pointer"></button>
+                                <button type="button" data-color="#06b6d4" title="Celeste" class="color-dot w-6 h-6 rounded-full bg-[#06b6d4] cursor-pointer"></button>
+                                <button type="button" data-color="#2563eb" title="Azul" class="color-dot w-6 h-6 rounded-full bg-[#2563eb] cursor-pointer"></button>
+                                <button type="button" data-color="#78350f" title="Café" class="color-dot w-6 h-6 rounded-full bg-[#78350f] cursor-pointer"></button>
+                                <button type="button" data-color="#18181b" title="Negro" class="color-dot w-6 h-6 rounded-full bg-[#18181b] cursor-pointer"></button>
+                                <button type="button" data-color="#faf5ff" title="Borrador" class="color-dot w-6 h-6 rounded-full bg-white border border-purple-300 flex items-center justify-center text-[10px] cursor-pointer">🧽</button>
+                            </div>
+
+                            <div class="flex items-center gap-1 bg-white px-2 py-1 rounded-full border border-purple-200">
+                                <button type="button" data-size="2.5" class="size-dot w-5 h-5 rounded-full flex items-center justify-center cursor-pointer" title="Fino">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-purple-900"></span>
+                                </button>
+                                <button type="button" data-size="5" class="size-dot active w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center cursor-pointer" title="Medio">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-purple-900"></span>
+                                </button>
+                                <button type="button" data-size="9" class="size-dot w-5 h-5 rounded-full flex items-center justify-center cursor-pointer" title="Grueso">
+                                    <span class="w-3.5 h-3.5 rounded-full bg-purple-900"></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between gap-1.5 px-1">
+                            <span class="text-[11px] font-bold text-purple-700">Sellitos:</span>
+                            <div class="flex items-center gap-1" id="stamp-bar">
+                                <button type="button" data-stamp="" class="stamp-btn active px-2 py-0.5 rounded-full bg-purple-800 text-white text-[11px] font-bold cursor-pointer">✏️ Lápiz</button>
+                                <button type="button" data-stamp="💜" class="stamp-btn px-1.5 py-0.5 rounded-full bg-purple-100 text-sm cursor-pointer">💜</button>
+                                <button type="button" data-stamp="🐭" class="stamp-btn px-1.5 py-0.5 rounded-full bg-purple-100 text-sm cursor-pointer">🐭</button>
+                                <button type="button" data-stamp="🐱" class="stamp-btn px-1.5 py-0.5 rounded-full bg-purple-100 text-sm cursor-pointer">🐱</button>
+                                <button type="button" data-stamp="⭐" class="stamp-btn px-1.5 py-0.5 rounded-full bg-purple-100 text-sm cursor-pointer">⭐</button>
+                                <button type="button" data-stamp="🌸" class="stamp-btn px-1.5 py-0.5 rounded-full bg-purple-100 text-sm cursor-pointer">🌸</button>
+                            </div>
+                        </div>
+
+                        <canvas id="draw-pad" class="w-full h-44 rounded-2xl bg-[#faf5ff] border-2 border-purple-200 touch-none cursor-crosshair"></canvas>
+                    </div>
+                </div>
+
+                <!-- ==================== 6. PESTAÑA RECUERDOS (ILIMITADOS DESPUÉS DE LAS 2 FOTOS) ==================== -->
+                <div id="tab-recuerdos" class="tab-panel space-y-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2 px-1">
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-purple-900">
+                            Nuestros momentos 📸
+                        </h2>
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <button id="flip-polaroid-btn" type="button" class="hidden text-[11px] font-bold bg-fuchsia-100 hover:bg-fuchsia-200 active:scale-95 text-purple-900 px-2.5 py-1 rounded-full border border-purple-200 transition-transform cursor-pointer">
+                                Voltear nota ↄ
+                            </button>
+                            <button id="fullscreen-photo-btn" type="button" class="hidden text-[11px] font-bold bg-purple-100 hover:bg-purple-200 active:scale-95 text-purple-900 px-2.5 py-1 rounded-full border border-purple-200 transition-transform cursor-pointer">
+                                Ampliar 🔍
+                            </button>
+                            <label id="upload-photo-label" for="custom-photo-input" class="text-[11px] font-bold bg-purple-800 hover:bg-purple-900 active:scale-95 text-white px-3 py-1 rounded-full transition-transform cursor-pointer">
+                                📸 Subir foto
+                            </label>
+                            <button id="add-more-photos-btn" type="button" class="hidden text-[11px] font-bold bg-fuchsia-600 hover:bg-fuchsia-700 active:scale-95 text-white px-3 py-1 rounded-full transition-transform cursor-pointer">
+                                ➄ Agregar otra fotito
+                            </button>
+                            <input id="custom-photo-input" type="file" accept="image/*" class="hidden">
+                            <input id="extra-photo-input" type="file" accept="image/*" class="hidden">
+                        </div>
+                    </div>
+
+                    <div class="relative flex items-center justify-center gap-2">
+                        <button id="prev-photo-btn" type="button" class="w-9 h-9 rounded-full bg-white hover:bg-purple-50 active:scale-90 border border-purple-200 flex items-center justify-center text-purple-800 font-bold shrink-0 cursor-pointer">
+                            
+                        </button>
+
+                        <div class="polaroid-perspective w-full max-w-[300px] sm:max-w-[330px] py-1">
+                            <div id="polaroid-inner" class="polaroid-inner">
+                                <div class="polaroid-face bg-gradient-to-b from-white to-purple-50 p-3 pb-4 rounded-2xl shadow-lg border-2 border-purple-200 relative">
+                                    <div class="absolute -top-2.5 left-5 w-14 h-5 bg-purple-300/80 -rotate-12 rounded-xs border border-white/70 pointer-events-none z-10"></div>
+                                    <div class="absolute -top-2.5 right-5 w-14 h-5 bg-fuchsia-300/80 rotate-12 rounded-xs border border-white/70 pointer-events-none z-10"></div>
+
+                                    <label id="polaroid-upload-placeholder" for="custom-photo-input" class="w-full aspect-[4/3] rounded-xl bg-gradient-to-br from-purple-100 via-fuchsia-50 to-violet-100 border-2 border-dashed border-purple-300 flex flex-col items-center justify-center p-4 text-center cursor-pointer hover:bg-purple-100/70 transition-colors">
+                                        <span id="placeholder-emoji" class="text-4xl mb-2">📸</span>
+                                        <p id="placeholder-prompt" class="font-bold text-sm sm:text-base text-purple-950 leading-snug">
+                                            Sube una foto nuestra juntos 📸
+                                        </p>
+                                        <span class="mt-2.5 text-[11px] font-bold bg-purple-800 text-white px-3 py-1 rounded-full">
+                                            Elegir foto de galería
+                                        </span>
+                                    </label>
+
+                                    <div id="polaroid-photo-frame" class="hidden relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-purple-100 border border-purple-200 cursor-pointer">
+                                        <img id="polaroid-img" src="" alt="Recuerdo" class="w-full h-full object-cover">
+                                        <span id="polaroid-counter" class="absolute bottom-2 right-2 bg-purple-950/75 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full">
+                                            1 / 2
+                                        </span>
+                                    </div>
+
+                                    <div class="mt-2.5 text-center px-1 min-h-[42px] flex flex-col items-center justify-center">
+                                        <p id="polaroid-front-caption" class="hidden font-handwriting text-xl sm:text-2xl text-purple-950 font-bold leading-tight"></p>
+                                        <p id="polaroid-flip-hint" class="hidden text-[10px] text-purple-600 font-semibold mt-0.5">
+                                            (Toca la foto para voltearla o usa 🔍 para agrandarla)
+                                        </p>
+                                        <p id="polaroid-locked-hint" class="text-[11px] text-purple-500 font-semibold">
+                                            Recuerdo <span id="polaroid-slot-num">1 / 2</span>  Sube la foto para desbloquear su dedicatoria
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div id="polaroid-back-face" class="polaroid-face polaroid-back absolute inset-0 paper-dots bg-gradient-to-br from-purple-100 via-fuchsia-50 to-violet-100 p-5 rounded-2xl shadow-lg border-2 border-purple-300 flex flex-col items-center justify-center text-center cursor-pointer">
+                                    <span class="text-2xl mb-1.5">💌</span>
+                                    <p id="polaroid-back-note" class="font-handwriting text-2xl sm:text-[26px] text-purple-950 font-bold leading-snug"></p>
+                                    <span class="mt-3 text-[11px] font-bold text-purple-700 bg-white px-3 py-1 rounded-full border border-purple-200">
+                                        Toca para volver ↄ
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="next-photo-btn" type="button" class="w-9 h-9 rounded-full bg-white hover:bg-purple-50 active:scale-90 border border-purple-200 flex items-center justify-center text-purple-800 font-bold shrink-0 cursor-pointer">
+                            
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PIE DE CARTA -->
+            <div class="px-4 sm:px-6 py-3 bg-purple-100 border-t border-purple-200 flex items-center justify-between gap-2.5 shrink-0">
+                <button id="close-letter-btn" type="button" class="px-3.5 py-2 rounded-xl bg-white hover:bg-purple-50 active:scale-95 text-purple-900 font-bold text-xs sm:text-sm border border-purple-200 transition-transform cursor-pointer">
+                    Guardar 💌
+                </button>
+
+                <button id="night-sky-btn" type="button" class="flex-1 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-800 via-violet-600 to-fuchsia-500 hover:brightness-110 active:scale-95 text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
+                    <span>Nuestro cielo lila 🦋⭐</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL DE VISTA AMPLIADA DE FOTOS -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-purple-950/92">
+        <div class="relative max-w-lg w-full bg-white p-3.5 pb-5 rounded-3xl shadow-2xl border-2 border-purple-300">
+            <button id="close-lightbox-btn" type="button" class="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-purple-700 hover:bg-purple-800 text-white font-bold shadow-md flex items-center justify-center cursor-pointer">
+                ⭐
+            </button>
+            <div class="w-full max-h-[68vh] rounded-2xl overflow-hidden bg-purple-100 flex items-center justify-center">
+                <img id="lightbox-img" src="" alt="Foto ampliada" class="w-full h-full max-h-[68vh] object-contain">
+            </div>
+            <p id="lightbox-caption" class="font-handwriting text-2xl sm:text-3xl text-purple-950 font-bold text-center mt-3"></p>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         ESCENA 3: CIELO LILA CLEAN, MINIMALISTA Y FLUIDO (60 FPS)
+         ========================================================= -->
+    <div id="sky-stage" class="fixed inset-0 z-50 opacity-0 pointer-events-none transition-opacity duration-250 bg-gradient-to-b from-[#0d041a] via-[#1f0b3d] to-[#361463] flex flex-col justify-between p-4 sm:p-6 overflow-hidden">
+        
+        <canvas id="sky-canvas" class="fixed inset-0 w-full h-full cursor-crosshair"></canvas>
+
+        <div class="relative z-10 flex items-center justify-between gap-2">
+            <div id="sky-hint-badge" class="bg-purple-950/80 border border-purple-300/30 px-3.5 py-1.5 rounded-full text-purple-100 text-xs sm:text-sm font-semibold">
+                ⭐ Toca el cielo para iluminar el corazón, Nayu
+            </div>
+            <button id="close-sky-btn" type="button" class="bg-white hover:bg-purple-50 active:scale-95 text-purple-950 font-bold text-xs sm:text-sm px-4 py-2 rounded-full shadow-md transition-transform cursor-pointer">
+                Volver 💜
+            </button>
+        </div>
+
+        <div class="relative z-10 max-w-lg mx-auto w-full bg-purple-950/80 border border-purple-200/30 rounded-3xl p-4 sm:p-5 text-center text-white shadow-xl">
+            <p class="font-script text-2xl sm:text-3xl text-fuchsia-200 font-bold mb-1">
+                Para mi ratoncita, Nayu 💜
+            </p>
+            <p id="sky-quote" class="font-handwriting text-xl sm:text-2xl text-purple-100 leading-snug mb-3.5">
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-2">
+                <button id="complete-heart-btn" type="button" class="px-3.5 py-2 rounded-full bg-gradient-to-r from-fuchsia-500 via-purple-500 to-pink-500 hover:brightness-110 active:scale-95 text-white text-xs font-bold shadow-md transition-transform cursor-pointer">
+                    💜 Completar corazón
+                </button>
+                <button id="fireworks-nayu-btn" type="button" class="px-3 py-2 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 border border-purple-200/35 text-purple-100 text-xs font-bold transition-transform cursor-pointer">
+                    🎆 Fuegos NAYU
+                </button>
+                <button id="spawn-butterflies-btn" type="button" class="px-3 py-2 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 border border-purple-200/35 text-purple-100 text-xs font-bold transition-transform cursor-pointer">
+                    🦋 Mariposas
+                </button>
+                <button id="spawn-fireflies-btn" type="button" class="px-3 py-2 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 border border-purple-200/35 text-purple-100 text-xs font-bold transition-transform cursor-pointer">
+                    ⭐ Luciérnagas
+                </button>
+                <button id="next-sky-quote-btn" type="button" class="px-3 py-2 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 border border-purple-200/35 text-purple-100 text-xs font-bold transition-transform cursor-pointer">
+                    🎲 Frase
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            function shuffleArray(list) {
+                const copy = list.slice();
+                for (let i = copy.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [copy[i], copy[j]] = [copy[j], copy[i]];
+                }
+                return copy;
+            }
+
+            function pickRandom(list, current) {
+                if (!list || list.length === 0) return '';
+                if (list.length === 1) return list[0];
+                let candidate = list[Math.floor(Math.random() * list.length)];
+                let tries = 0;
+                while (candidate === current && tries < 8) {
+                    candidate = list[Math.floor(Math.random() * list.length)];
+                    tries++;
+                }
+                return candidate;
+            }
+
+            const ambientCanvas = document.getElementById('ambient-canvas');
+            const ambientCtx = ambientCanvas.getContext('2d');
+            const topBackBtn = document.getElementById('top-back-btn');
+
+            const charactersStage = document.getElementById('characters-stage');
+            const charactersSvg = document.getElementById('characters-svg');
+            const speechBubble = document.getElementById('speech-bubble');
+            const speechText = document.getElementById('speech-text');
+
+            const envelopeBox = document.getElementById('envelope-box');
+            const waxSeal = document.getElementById('wax-seal');
+            const letterStage = document.getElementById('letter-stage');
+            const letterCard = document.getElementById('letter-card');
+            const closeLetterBtn = document.getElementById('close-letter-btn');
+
+            const musicToggleBtn = document.getElementById('music-toggle-btn');
+            const musicBtnText = document.getElementById('music-btn-text');
+            const eqBars = document.getElementById('eq-bars');
+            const externalAudio = document.getElementById('external-audio');
+
+            const nextReasonBtn = document.getElementById('next-reason-btn');
+            const reasonText = document.getElementById('reason-text');
+            const noteCounterLabel = document.getElementById('note-counter-label');
+
+            let isLetterOpen = false;
+            let isSkyActive = false;
+
+            const characterQuotes = [
+                '¡Miau miau ratoncita! 🐱🧡',
+                'Snoopy te manda un abracito 🐶💜',
+                '¡Qué linda te ves hoy, Nayu! ⭐',
+                '¡Purrrr... mimos para ti! 🐭🌸',
+                'Woodstock dice que me encantas mucho 🐥💜'
+            ];
+            let lastCharQuote = '';
+
+            // 7 Notitas secuenciales (100% cosas bonitas de lo mucho que te encanta)
+            const sequentialNotes = [
+                '“Me encanta cuando te ríes por cualquier tontería y se te achican los ojos. 💜',
+                '“Contigo hasta un día normalito se siente mucho más bonito. ⭐',
+                '“Me encantas demasiado cuando entras en confianza y te pones toda ocurrente. 🐭',
+                '“Me fascina lo linda, tierna y especial que eres conmigo, Nayu. 🪻',
+                '“Tienes una forma bien bonita de hacerme sentir feliz y tranquilo contigo. ',
+                '“Me gusta cómo te brillan los ojitos cuando hablas de algo que te emociona. 🌸',
+                '“Eres mi ratoncita preciosa y me encantas más de lo que te imaginas, Nayu 💜'
+            ];
+            let noteIndex = 0;
+            function renderSequentialNote() {
+                noteCounterLabel.textContent = `Notita ${noteIndex + 1} de ${sequentialNotes.length} `;
+                reasonText.textContent = sequentialNotes[noteIndex];
+            }
+            renderSequentialNote();
+
+            // Mensajes de calma y paz para la pestaña 🌿 Calma
+            const calmMessages = {
+                desganada: [
+                    '“Está bien tener días bajos de energía, Nayu. No te presiones por rendir al cien hoy, ve a tu ritmo. 🥀💜',
+                    '“Tómate un respiro tranquilo, toma un poquito de agua y haz solo lo necesario por hoy, mi ratoncita. 🌿⭐',
+                    '“Aunque hoy sientas pocas ganas, lo estás haciendo muy bien. Descansa en cuanto puedas. 💜'
+                ],
+                triste: [
+                    '“Si te sientes melancólica o triste, date permiso de sentirlo sin juzgarte. Las nubes siempre terminan pasando. 🌧️💄',
+                    '“Quiero que estés tranquila y en paz, Nayu. Recuerda lo valiosa y bonita persona que eres. 🌸⭐',
+                    '“Respira suave: los días grises no duran para siempre y pronto vas a volver a sonreír con ganas. 💜'
+                ],
+                ansiedad: [
+                    '“Baja los hombros, suelta la mandíbula y enfócate solo en este segundo. Aquí estás a salvo y en calma. 🌀💜',
+                    '“No adelantes problemas que todavía no existen, mi ratoncita. Un pasito a la vez es más que suficiente. 🌿⭐',
+                    '“Inhala lento, exhala despacio. Tu mente merece descanso y tranquilidad. 💜'
+                ],
+                paz: [
+                    '“Deseo de corazón que tu mente esté serena, tu pecho ligero y tu día lleno de paz, Nayu. 🕊️💄',
+                    '“Apaga un ratito el ruido de afuera y quédate con lo que te hace bien, mi ratoncita. 🌄',
+                    '“Que nada te robe la calma hoy; tú mereces sentirte tranquila y cuidada siempre. 💜'
+                ]
+            };
+
+            // Moods (todo enfocado en ella y en "la siguiente vez que nos veamos")
+            const moodMessages = {
+                pensando: [
+                    '“Seguro yo también estoy pensando en ti con una sonrisa tonta mientras avanzo en mis cosas. 💭💜',
+                    '“Qué casualidad, justo me estaba acordando de ti y de tus ocurrencias, mi ratoncita. 🐭⭐',
+                    '“Siempre te tengo presente con mucho cariño y con ganas de que llegue la siguiente vez que nos veamos, Nayu. 💌'
+                ],
+                cansada: [
+                    '“Respira hondo, mi ratoncita. Hoy diste lo mejor de ti, así que descansa rico cuando termines tus cosas. 😴💜',
+                    '“Ponte cómoda y deja que tu cuerpo recargue pilas. Para la siguiente vez que nos veamos te debo muchos cariñitos para que te relajes. 🌙⭐',
+                    '“No te exijas de más hoy, Nayu. Duerme bien y mañana arrancas con toda la energía. 🪻'
+                ],
+                antojo: [
+                    '“Modo ratoncita activado: apunta tu antojo en Sorpresas para cumplirlo la siguiente vez que nos veamos. 🍫🐭',
+                    '“Date un gustito rico cuando tengas un tiempo, y guarda otro antojo para la siguiente vez que nos veamos. 🍓⭐',
+                    '“Para la siguiente vez que nos veamos tú eliges qué vamos a comer, cero quejas de mi parte. 🧁💜'
+                ],
+                aburrida: [
+                    '“Pásate a Jugar y retos a ver si pasas de 60 puntos en los quesitos sin llevarte un reto secreto. 🧀😈',
+                    '“Dibuja algo divertido en la pizarrita o rompe una galleta de la fortuna en Sorpresas. 🎨🥠',
+                    '“Abre el cielo lila y completa el corazón para ver tu nombre brillar en el cielo. 🎆💜'
+                ],
+                mimos: [
+                    '“Para la siguiente vez que nos veamos te toca doble ración de abrazos largos y cariñitos, ratoncita. 🫂💜',
+                    '“Acaricia un ratito al michi naranja en Jugar y retos mientras llega el día de vernos. 🐱🧡',
+                    '“Guarda esas ganas de cariñitos que para la siguiente vez que nos veamos te voy a consentir muchísimo. 💜'
+                ],
+                feliz: [
+                    '“¡Qué bueno verte así de contenta! Ojalá esa buena vibra te dure todo el día, ratoncita. 💄',
+                    '“Esa alegría tuya contagia a cualquiera, sigue brillando así de lindo, Nayu. 🐭',
+                    '“Celebra tu buen humor lanzando unos fuegos artificiales con tu nombre en el cielo lila. 🎆'
+                ],
+                estresada: [
+                    '“Una cosa a la vez, mi ratoncita. Tú eres súper capaz y vas a sacar todo adelante como siempre. 😤💜',
+                    '“Suelta los hombros un segundito, toma agua y date un respiro corto en la pestaña de Calma. 🌿⭐',
+                    '“Respira profundo: nada es más importante que tu tranquilidad, Nayu. 💜'
+                ],
+                motivada: [
+                    '“¡Esa es mi ratoncita! Cuando te propones algo no hay quien te pare. 💜',
+                    '“Me encanta verte con esa energía y ganas de comerte el mundo, vas con todo. 🐭🔥',
+                    '“Sigue así de enfocada que vas a lograr todo lo que te propongas. 💄'
+                ]
+            };
+
+            // Sorpresas para la siguiente vez que se vean
+            const surprisePool = [
+                { emoji: '🍫', title: 'Yo invito tu antojo', detail: 'Para la siguiente vez que nos veamos: un dulce, helado o lo que te provoque.' },
+                { emoji: '🫂', title: 'Abrazo largo sin soltarte', detail: 'Canjeable para la siguiente vez que nos veamos, sin mirar el reloj.' },
+                { emoji: '🎬', title: 'Tú eliges qué vemos', detail: 'Para la siguiente vez que nos veamos ponemos la peli o serie que tú quieras.' },
+                { emoji: '🚶‍♀︄', title: 'Caminata tranquila', detail: 'Para la siguiente vez que nos veamos: salir a dar una vuelta y charlar sin prisa.' },
+                { emoji: '💆‍♀︄', title: 'Cariñitos garantizados', detail: 'Mimos y cariñitos para la siguiente vez que nos veamos.' },
+                { emoji: '👑', title: 'La siguiente mandas tú', detail: 'Tú decides adónde vamos y qué hacemos la siguiente vez que nos veamos.' }
+            ];
+
+            // Galletitas de la fortuna (para la siguiente vez que nos veamos)
+            const fortuneCookiesList = [
+                { msg: '“Vale por elegir el postre sin discutir para la siguiente vez que nos veamos.', nums: 'Números de suerte: 07  14  22' },
+                { msg: '“Para la siguiente vez que nos veamos te espera un abrazo largo y mucho cariño.', nums: 'Números de suerte: 03  11  29' },
+                { msg: '“Alguien piensa en ti con una sonrisa porque le encantas muchísimo.', nums: 'Números de suerte: 08  19  24' },
+                { msg: '“Vale para que tú elijas el plan completo para la siguiente vez que nos veamos.', nums: 'Números de suerte: 05  16  30' },
+                { msg: '“Se acerca un encuentro muy bonito lleno de risas para los dos.', nums: 'Números de suerte: 02  12  27' }
+            ];
+
+            // Planes para la siguiente vez que se vean
+            const plansList = [
+                { emoji: '🍿', title: 'Tarde de pelis y algo rico', desc: 'Para la siguiente vez que nos veamos nos echamos tranquilos y ponemos la que tú quieras ver.' },
+                { emoji: '🍦', title: 'Ir por un helado o algo dulce', desc: 'Para la siguiente vez que nos veamos salimos a caminar un rato y comer algo rico.' },
+                { emoji: '🎧', title: 'Escuchar música juntos', desc: 'Para la siguiente vez que nos veamos nos pasamos canciones que nos gusten y charlamos sin prisa.' },
+                { emoji: '🍔', title: 'Ir a comer algo que te guste', desc: 'Para la siguiente vez que nos veamos vamos directo por lo que más se te antoje.' },
+                { emoji: '🌙', title: 'Salir a tomar aire', desc: 'Para la siguiente vez que nos veamos nos desconectamos un rato y pasamos buen tiempo.' }
+            ];
+
+            // Retos secretos al azar (sin consentirla todo el día y con alta probabilidad de fotitos)
+            const photoPenalties = [
+                '“Me debes una foto tuya haciendo caritas chistosas ahorita. 📸🐭',
+                '“Me debes una foto tuya sonriendo bien bonito para alegrarme el rato. 📸⭐',
+                '“Me debes una selfie tuya mandándome un besito. 📸😘',
+                '“Me debes una foto tuya ahorita mismo haciendo tu pose favorita. 📸💜',
+                '“Me debes una fotito tuya haciendo ojitos de ratoncita. 📸🐭💜'
+            ];
+
+            const otherPenalties = [
+                '“Me debes un abrazo sin límite de tiempo para la siguiente vez que nos veamos. 🫂💜',
+                '“Me debes un beso bien dado para la siguiente vez que nos veamos, sin escaparte. 😘💜',
+                '“Me debes un audio cantando el pedacito de una canción que te guste. 🎤🎵'
+            ];
+
+            function pickWeightedPenalty(current) {
+                const usePhotoPool = Math.random() < 0.8;
+                const chosenPool = usePhotoPool ? photoPenalties : otherPenalties;
+                return pickRandom(chosenPool, current);
+            }
+
+            const skyQuotesList = [
+                '“Cada luz que enciendes aquí es una razón por la que me encantas. ⭐',
+                '“Bajo este cielo lila solo pienso en lo bonito que es coincidir contigo, Nayu. 💜',
+                '“Eres mi ratoncita preciosa, que nunca se te olvide. 🐭🦋',
+                '“Deseo que siempre estés tranquila, feliz y en paz. 🪻',
+                '“Mira cómo brilla tu nombre en el cielo, Nayu. 🎆💜'
+            ];
+
+            /* PESTAÑAS */
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const targetId = btn.dataset.tab;
+                    tabBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-purple-800', 'text-white');
+                        b.classList.add('bg-purple-100', 'text-purple-900');
+                    });
+                    btn.classList.add('active', 'bg-purple-800', 'text-white');
+                    btn.classList.remove('bg-purple-100', 'text-purple-900');
+
+                    tabPanels.forEach(panel => {
+                        panel.classList.toggle('active', panel.id === targetId);
+                    });
+
+                    if (targetId === 'tab-jugar') {
+                        setTimeout(resizeDrawPad, 30);
+                    }
+                });
+            });
+
+            /* CANVAS AMBIENTAL OPTIMIZADO */
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            let dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+            let ambientRunning = false;
+            let ambientRafId = null;
+
+            const skyCanvas = document.getElementById('sky-canvas');
+            const skyCtx = skyCanvas.getContext('2d');
+
+            function resizeCanvases() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+
+                ambientCanvas.width = Math.floor(width * dpr);
+                ambientCanvas.height = Math.floor(height * dpr);
+                ambientCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+                skyCanvas.width = Math.floor(width * dpr);
+                skyCanvas.height = Math.floor(height * dpr);
+                skyCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+                if (isSkyActive) {
+                    buildHeartConstellation();
+                }
+            }
+            window.addEventListener('resize', resizeCanvases);
+            resizeCanvases();
+
+            const ambientParticles = [];
+            const burstParticles = [];
+            const palette = ['#d8b4fe', '#c084fc', '#f0abfc', '#e879f9', '#a855f7'];
+
+            for (let i = 0; i < 22; i++) {
+                ambientParticles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 5 + 3,
+                    speedY: -(Math.random() * 0.5 + 0.25),
+                    speedX: (Math.random() - 0.5) * 0.38,
+                    wobble: Math.random() * Math.PI * 2,
+                    wobbleSpeed: Math.random() * 0.02 + 0.01,
+                    rot: Math.random() * Math.PI * 2,
+                    rotSpeed: (Math.random() - 0.5) * 0.02,
+                    kind: i % 3 === 0 ? 'star' : (i % 2 === 0 ? 'petal' : 'heart'),
+                    color: palette[i % palette.length],
+                    alpha: Math.random() * 0.48 + 0.35
+                });
+            }
+
+            function drawHeart(ctx, x, y, size, color, alpha, rot = 0) {
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(rot);
+                ctx.globalAlpha = alpha;
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                const s = size * 0.62;
+                ctx.moveTo(0, s * 0.4);
+                ctx.bezierCurveTo(-s, -s * 0.4, -s * 1.4, s * 0.6, 0, s * 1.4);
+                ctx.bezierCurveTo(s * 1.4, s * 0.6, s, -s * 0.4, 0, s * 0.4);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            function drawPetal(ctx, x, y, size, color, alpha, rot) {
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(rot);
+                ctx.globalAlpha = alpha;
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.ellipse(0, 0, size * 0.5, size * 1.05, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            function drawStar(ctx, x, y, size, color, alpha, rot) {
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(rot);
+                ctx.globalAlpha = alpha;
+                ctx.fillStyle = color;
+                ctx.shadowColor = '#f0abfc';
+                ctx.shadowBlur = Math.max(8, size * 1.8);
+                ctx.beginPath();
+                for (let i = 0; i < 4; i++) {
+                    ctx.rotate(Math.PI / 2);
+                    ctx.moveTo(0, 0);
+                    ctx.quadraticCurveTo(size * 0.22, size * 0.22, 0, size * 1.3);
+                    ctx.quadraticCurveTo(-size * 0.22, size * 0.22, 0, 0);
+                }
+                ctx.fill();
+                ctx.restore();
+            }
+
+            function spawnBurst(x, y, count = 10) {
+                if (isLetterOpen || isSkyActive) return;
+                for (let i = 0; i < count; i++) {
+                    const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4;
+                    const speed = Math.random() * 4 + 1.8;
+                    burstParticles.push({
+                        x, y,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed - 1.1,
+                        size: Math.random() * 5 + 4,
+                        life: 1,
+                        decay: 0.025,
+                        color: palette[i % palette.length],
+                        isHeart: i % 2 === 0,
+                        rot: Math.random() * Math.PI * 2
+                    });
+                }
+                if (burstParticles.length > 36) burstParticles.splice(0, burstParticles.length - 36);
+            }
+
+            function ambientLoop() {
+                if (!ambientRunning) return;
+                ambientCtx.clearRect(0, 0, width, height);
+
+                for (let i = 0; i < ambientParticles.length; i++) {
+                    const p = ambientParticles[i];
+                    p.wobble += p.wobbleSpeed;
+                    p.x += p.speedX + Math.sin(p.wobble) * 0.36;
+                    p.y += p.speedY;
+                    p.rot += p.rotSpeed;
+
+                    if (p.y < -20) { p.y = height + 20; p.x = Math.random() * width; }
+                    if (p.x < -20) p.x = width + 20;
+                    if (p.x > width + 20) p.x = -20;
+
+                    if (p.kind === 'heart') drawHeart(ambientCtx, p.x, p.y, p.size, p.color, p.alpha, p.rot * 0.25);
+                    else if (p.kind === 'petal') drawPetal(ambientCtx, p.x, p.y, p.size, p.color, p.alpha, p.rot);
+                    else drawStar(ambientCtx, p.x, p.y, p.size, '#ffffff', p.alpha, p.rot);
+                }
+
+                for (let i = burstParticles.length - 1; i >= 0; i--) {
+                    const b = burstParticles[i];
+                    b.x += b.vx;
+                    b.y += b.vy;
+                    b.vy += 0.08;
+                    b.life -= b.decay;
+                    b.rot += 0.04;
+                    if (b.life <= 0) { burstParticles.splice(i, 1); continue; }
+                    if (b.isHeart) drawHeart(ambientCtx, b.x, b.y, b.size, b.color, b.life, b.rot * 0.3);
+                    else drawStar(ambientCtx, b.x, b.y, b.size, b.color, b.life, b.rot);
+                }
+
+                ambientRafId = requestAnimationFrame(ambientLoop);
+            }
+
+            function startAmbientLoop() {
+                if (ambientRunning) return;
+                ambientRunning = true;
+                ambientRafId = requestAnimationFrame(ambientLoop);
+            }
+
+            function stopAmbientLoop() {
+                ambientRunning = false;
+                if (ambientRafId) cancelAnimationFrame(ambientRafId);
+            }
+
+            startAmbientLoop();
+
+            /* MÚSICA "THE REASON" */
+            let audioCtx = null;
+            let isMusicPlaying = false;
+            let seqTimer = null;
+            let stepIndex = 0;
+            let usingExternalFile = false;
+
+            const theReasonScore = [
+                { chord: [164.81, 246.94], mel: 329.63 },
+                { chord: null,             mel: 329.63 },
+                { chord: [246.94],         mel: 369.99 },
+                { chord: null,             mel: 415.30 },
+                { chord: [164.81, 246.94], mel: 369.99 },
+                { chord: null,             mel: 329.63 },
+                { chord: [246.94],         mel: 311.13 },
+                { chord: null,             mel: 329.63 },
+                { chord: [138.59, 207.65], mel: 329.63 },
+                { chord: null,             mel: 329.63 },
+                { chord: [207.65],         mel: 369.99 },
+                { chord: null,             mel: 415.30 },
+                { chord: [138.59, 207.65], mel: 493.88 },
+                { chord: null,             mel: 415.30 },
+                { chord: [207.65],         mel: 369.99 },
+                { chord: null,             mel: 329.63 }
+            ];
+
+            function playElectricPianoTone(freq, isMelody = false) {
+                if (!audioCtx || !freq) return;
+                const now = audioCtx.currentTime;
+                const osc1 = audioCtx.createOscillator();
+                const osc2 = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc1.type = 'sine';
+                osc2.type = 'triangle';
+                osc1.frequency.setValueAtTime(freq, now);
+                osc2.frequency.setValueAtTime(freq * 2, now);
+
+                const subGain = audioCtx.createGain();
+                subGain.gain.setValueAtTime(isMelody ? 0.13 : 0.07, now);
+                osc2.connect(subGain);
+
+                const peak = isMelody ? 0.07 : 0.035;
+                const duration = isMelody ? 1.1 : 1.4;
+                gain.gain.setValueAtTime(0.0001, now);
+                gain.gain.exponentialRampToValueAtTime(peak, now + 0.025);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+                osc1.connect(gain);
+                subGain.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc1.start(now);
+                osc2.start(now);
+                osc1.stop(now + duration + 0.05);
+                osc2.stop(now + duration + 0.05);
+            }
+
+            function stepMelody() {
+                if (!isMusicPlaying || usingExternalFile) return;
+                const step = theReasonScore[stepIndex % theReasonScore.length];
+                if (step.chord) step.chord.forEach(f => playElectricPianoTone(f, false));
+                if (step.mel) playElectricPianoTone(step.mel, true);
+                stepIndex++;
+            }
+
+            function startSynthMelody() {
+                if (!audioCtx) {
+                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                    audioCtx = new AudioContextClass();
+                }
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                stepMelody();
+                clearInterval(seqTimer);
+                seqTimer = setInterval(stepMelody, 310);
+            }
+
+            musicToggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isMusicPlaying) {
+                    isMusicPlaying = false;
+                    clearInterval(seqTimer);
+                    externalAudio.pause();
+                    eqBars.classList.remove('music-active');
+                    musicBtnText.textContent = 'The Reason 🎵';
+                    return;
+                }
+                isMusicPlaying = true;
+                eqBars.classList.add('music-active');
+                musicBtnText.textContent = 'Sonando 💜';
+                const playPromise = externalAudio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => { usingExternalFile = true; }).catch(() => {
+                        usingExternalFile = false;
+                        startSynthMelody();
+                    });
+                } else {
+                    startSynthMelody();
+                }
+            });
+
+            /* PERSONAJES Y SOBRE */
+            let speechTimeout = null;
+            charactersStage.addEventListener('click', (e) => {
+                e.stopPropagation();
+                charactersSvg.classList.remove('characters-hop');
+                void charactersSvg.offsetWidth;
+                charactersSvg.classList.add('characters-hop');
+
+                lastCharQuote = pickRandom(characterQuotes, lastCharQuote);
+                speechText.textContent = lastCharQuote;
+
+                speechBubble.classList.remove('hidden', 'speech-bubble-anim');
+                void speechBubble.offsetWidth;
+                speechBubble.classList.add('speech-bubble-anim');
+
+                clearTimeout(speechTimeout);
+                speechTimeout = setTimeout(() => speechBubble.classList.add('hidden'), 2200);
+                spawnBurst(e.clientX, e.clientY, 12);
+            });
+
+            function openLetter(x, y) {
+                if (isLetterOpen) return;
+                isLetterOpen = true;
+                spawnBurst(x || width / 2, y || height / 2, 16);
+                waxSeal.style.opacity = '0';
+                envelopeBox.classList.remove('envelope-float');
+                envelopeBox.classList.add('envelope-open');
+
+                setTimeout(() => {
+                    stopAmbientLoop();
+                    letterStage.classList.remove('opacity-0', 'pointer-events-none');
+                    letterCard.classList.add('active');
+                    topBackBtn.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
+                }, 230);
+            }
+
+            function closeLetter() {
+                if (!isLetterOpen) return;
+                isLetterOpen = false;
+                letterCard.classList.remove('active');
+                letterStage.classList.add('opacity-0', 'pointer-events-none');
+                topBackBtn.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+
+                setTimeout(() => {
+                    startAmbientLoop();
+                    envelopeBox.classList.remove('envelope-open');
+                    envelopeBox.classList.add('envelope-float');
+                    waxSeal.style.opacity = '1';
+                }, 200);
+            }
+
+            envelopeBox.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openLetter(e.clientX, e.clientY);
+            });
+            envelopeBox.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openLetter();
+                }
+            });
+
+            closeLetterBtn.addEventListener('click', (e) => { e.stopPropagation(); closeLetter(); });
+            topBackBtn.addEventListener('click', (e) => { e.stopPropagation(); closeLetter(); });
+
+            /* CARTITA: NOTITAS SECUENCIALES */
+            nextReasonBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                reasonText.style.opacity = '0';
+                setTimeout(() => {
+                    noteIndex = (noteIndex + 1) % sequentialNotes.length;
+                    renderSequentialNote();
+                    reasonText.style.opacity = '1';
+                }, 120);
+            });
+
+            /* PESTAÑA 2: 🌿 CALMA Y PAZ */
+            const breathOrb = document.getElementById('breath-orb');
+            const breathSecondsEl = document.getElementById('breath-seconds');
+            const breathInstruction = document.getElementById('breath-instruction');
+            const btnToggleBreath = document.getElementById('btn-toggle-breath');
+
+            let breathRunning = false;
+            let breathInterval = null;
+            let breathPhaseIdx = 0;
+            let breathCount = 4;
+
+            const breathPhases = [
+                { label: 'Inhala suave por la nariz... 🌸', scale: 'scale(1.45)', bg: '#9333ea' },
+                { label: 'Sostén el aire un poquito... ⭐', scale: 'scale(1.45)', bg: '#c026d3' },
+                { label: 'Exhala lento por la boca... 🌿', scale: 'scale(0.85)', bg: '#7e22ce' }
+            ];
+
+            function applyBreathPhase() {
+                const phase = breathPhases[breathPhaseIdx];
+                breathInstruction.textContent = phase.label;
+                breathOrb.style.transform = phase.scale;
+                breathOrb.style.backgroundColor = phase.bg;
+                breathSecondsEl.textContent = `${breathCount}s`;
+            }
+
+            function stopBreathingGuide() {
+                breathRunning = false;
+                clearInterval(breathInterval);
+                btnToggleBreath.textContent = '🌿 Empezar respiración (4-4-4)';
+                breathOrb.style.transform = 'scale(1)';
+                breathSecondsEl.textContent = '4s';
+                breathInstruction.textContent = 'Lista cuando tú quieras 💜';
+            }
+
+            btnToggleBreath.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (breathRunning) {
+                    stopBreathingGuide();
+                    return;
+                }
+                breathRunning = true;
+                breathPhaseIdx = 0;
+                breathCount = 4;
+                btnToggleBreath.textContent = '⏄ Pausar respiración';
+                applyBreathPhase();
+
+                breathInterval = setInterval(() => {
+                    breathCount--;
+                    if (breathCount <= 0) {
+                        breathPhaseIdx = (breathPhaseIdx + 1) % breathPhases.length;
+                        breathCount = 4;
+                        applyBreathPhase();
+                    } else {
+                        breathSecondsEl.textContent = `${breathCount}s`;
+                    }
+                }, 1000);
+            });
+
+            const calmBtns = document.querySelectorAll('.calm-btn');
+            const calmTag = document.getElementById('calm-tag');
+            const calmText = document.getElementById('calm-text');
+            const btnNextCalmMsg = document.getElementById('btn-next-calm-msg');
+            let selectedCalmKey = null;
+            let currentCalmMsg = '';
+
+            const calmTitles = {
+                desganada: '🥀 Cuando andas desganada',
+                triste: '🌧︄ Cuando te sientes triste o melancólica',
+                ansiedad: '🌀 Cuando sientes ansiedad',
+                paz: '🕊︄ Para darte paz y calma'
+            };
+
+            calmBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    selectedCalmKey = btn.dataset.calm;
+                    calmTag.textContent = calmTitles[selectedCalmKey] || 'Para tu calma';
+                    currentCalmMsg = pickRandom(calmMessages[selectedCalmKey], currentCalmMsg);
+                    calmText.textContent = currentCalmMsg;
+                    btnNextCalmMsg.classList.remove('hidden');
+                });
+            });
+
+            btnNextCalmMsg.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!selectedCalmKey) return;
+                currentCalmMsg = pickRandom(calmMessages[selectedCalmKey], currentCalmMsg);
+                calmText.textContent = currentCalmMsg;
+            });
+
+            const worryInput = document.getElementById('worry-input');
+            const btnReleaseWorry = document.getElementById('btn-release-worry');
+            const worryFeedback = document.getElementById('worry-feedback');
+
+            btnReleaseWorry.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!worryInput.value.trim()) {
+                    worryFeedback.textContent = 'Escribe aunque sea una palabrita para soltarla 💜';
+                    return;
+                }
+                worryInput.classList.add('worry-dissolving');
+                worryFeedback.textContent = '⭐ Listo, ya lo soltaste. Respira ligero, mi ratoncita.';
+                setTimeout(() => {
+                    worryInput.value = '';
+                    worryInput.classList.remove('worry-dissolving');
+                }, 760);
+            });
+
+            /* MOODS */
+            const moodBtns = document.querySelectorAll('.mood-btn');
+            const moodResponseTag = document.getElementById('mood-response-tag');
+            const moodResponseText = document.getElementById('mood-response-text');
+            const btnAnotherMoodMsg = document.getElementById('btn-another-mood-msg');
+            let selectedMoodKey = null;
+            let currentMoodMsg = '';
+
+            const moodTitles = {
+                pensando: '💭 Cuando estás pensando en mí',
+                cansada: '😴 Cuando andas cansada',
+                antojo: '🍫 Cuando tienes antojo',
+                aburrida: '🥱 Cuando estás aburrida',
+                mimos: '🫂 Cuando tienes ganas de cariño',
+                feliz: '⭐ Cuando estás de buen humor',
+                estresada: '😤 Cuando estás estresada',
+                motivada: ' Cuando andas motivada'
+            };
+
+            moodBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    selectedMoodKey = btn.dataset.mood;
+                    moodResponseTag.textContent = moodTitles[selectedMoodKey] || 'Para ti';
+                    currentMoodMsg = pickRandom(moodMessages[selectedMoodKey], currentMoodMsg);
+                    moodResponseText.textContent = currentMoodMsg;
+                    btnAnotherMoodMsg.classList.remove('hidden');
+                });
+            });
+
+            btnAnotherMoodMsg.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!selectedMoodKey) return;
+                currentMoodMsg = pickRandom(moodMessages[selectedMoodKey], currentMoodMsg);
+                moodResponseText.textContent = currentMoodMsg;
+            });
+
+            /* SORPRESAS + GALLETA DE LA FORTUNA */
+            const surprisesGrid = document.getElementById('surprises-grid');
+            const btnShuffleSurprises = document.getElementById('btn-shuffle-surprises');
+            let currentSurprises = [];
+            let openedSurprises = new Set();
+
+            function dealSurprises() {
+                currentSurprises = shuffleArray(surprisePool).slice(0, 3);
+                openedSurprises.clear();
+                renderSurprises();
+            }
+
+            function renderSurprises() {
+                surprisesGrid.innerHTML = '';
+                currentSurprises.forEach((item, idx) => {
+                    const isOpen = openedSurprises.has(idx);
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = `${isOpen ? 'bg-purple-900 text-white border-purple-950' : 'bg-gradient-to-br from-purple-100 to-fuchsia-100 text-purple-950 border-purple-300'} rounded-2xl border p-3 text-left flex flex-col justify-between min-h-[104px] active:scale-95 transition-transform cursor-pointer`;
+
+                    if (!isOpen) {
+                        btn.innerHTML = `
+                            <div class="flex items-center justify-between text-xs font-bold text-purple-700">
+                                <span>Sorpresa</span>
+                                <span>🎁</span>
+                            </div>
+                            <div class="my-auto py-1">
+                                <p class="font-bold text-xs sm:text-sm text-purple-950">Toca para abrir</p>
+                                <p class="text-[11px] text-purple-700/80">¿Qué te tocará?</p>
+                            </div>
+                        `;
+                    } else {
+                        btn.innerHTML = `
+                            <div class="flex items-center justify-between text-xs font-bold text-purple-200">
+                                <span>${item.emoji}</span>
+                                <span>💜</span>
+                            </div>
+                            <div class="my-1">
+                                <p class="font-bold text-xs sm:text-sm text-white leading-snug">${item.title}</p>
+                                <p class="text-[11px] text-purple-100/90 leading-snug mt-0.5">${item.detail}</p>
+                            </div>
+                        `;
+                    }
+
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (!openedSurprises.has(idx)) {
+                            openedSurprises.add(idx);
+                            renderSurprises();
+                        }
+                    });
+                    surprisesGrid.appendChild(btn);
+                });
+            }
+
+            btnShuffleSurprises.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dealSurprises();
+            });
+            dealSurprises();
+
+            // Galleta de la fortuna
+            const fortuneCookieStage = document.getElementById('fortune-cookie-stage');
+            const cookieMessage = document.getElementById('cookie-message');
+            const cookieLuckyNumbers = document.getElementById('cookie-lucky-numbers');
+            const cookieTapHint = document.getElementById('cookie-tap-hint');
+            const btnNewCookie = document.getElementById('btn-new-cookie');
+            let currentCookieObj = fortuneCookiesList[0];
+            let isCookieCracked = false;
+
+            function prepareFreshCookie() {
+                isCookieCracked = false;
+                fortuneCookieStage.classList.remove('cookie-cracked');
+                cookieTapHint.classList.remove('hidden');
+                currentCookieObj = pickRandom(fortuneCookiesList, currentCookieObj);
+                cookieMessage.textContent = currentCookieObj.msg;
+                cookieLuckyNumbers.textContent = currentCookieObj.nums;
+            }
+            prepareFreshCookie();
+
+            function crackFortuneCookie() {
+                if (isCookieCracked) return;
+                isCookieCracked = true;
+                fortuneCookieStage.classList.add('cookie-cracked');
+                cookieTapHint.classList.add('hidden');
+            }
+
+            fortuneCookieStage.addEventListener('click', (e) => {
+                e.stopPropagation();
+                crackFortuneCookie();
+            });
+            btnNewCookie.addEventListener('click', (e) => {
+                e.stopPropagation();
+                prepareFreshCookie();
+            });
+
+            // Dado de planes
+            const btnRollPlan = document.getElementById('btn-roll-plan');
+            const diceIcon = document.getElementById('dice-icon');
+            const planEmoji = document.getElementById('plan-emoji');
+            const planTitle = document.getElementById('plan-title');
+            const planDesc = document.getElementById('plan-desc');
+            let currentPlan = pickRandom(plansList);
+
+            function renderPlan(p) {
+                planEmoji.textContent = p.emoji;
+                planTitle.textContent = p.title;
+                planDesc.textContent = p.desc;
+            }
+            renderPlan(currentPlan);
+
+            btnRollPlan.addEventListener('click', (e) => {
+                e.stopPropagation();
+                diceIcon.classList.remove('dice-rolling');
+                void diceIcon.offsetWidth;
+                diceIcon.classList.add('dice-rolling');
+                currentPlan = pickRandom(plansList, currentPlan);
+                renderPlan(currentPlan);
+            });
+
+            // Lista de antojos
+            const wishForm = document.getElementById('wish-form');
+            const wishInput = document.getElementById('wish-input');
+            const wishList = document.getElementById('wish-list');
+            const WISH_KEY = 'nayu_wishes_v7';
+            let wishes = ['Comer algo rico para la siguiente vez que nos veamos 💜', 'Ver una peli juntos'];
+
+            try {
+                const saved = localStorage.getItem(WISH_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (Array.isArray(parsed) && parsed.length) wishes = parsed;
+                }
+            } catch (_) {}
+
+            function renderWishes() {
+                wishList.innerHTML = '';
+                wishes.forEach((txt, i) => {
+                    const li = document.createElement('li');
+                    li.className = 'flex items-center justify-between gap-2 rounded-xl bg-purple-50 border border-purple-200/80 px-3 py-1.5 text-xs text-purple-950';
+                    const sp = document.createElement('span');
+                    sp.textContent = ` ${txt}`;
+                    const del = document.createElement('button');
+                    del.type = 'button';
+                    del.textContent = '⭐';
+                    del.className = 'text-purple-400 hover:text-purple-800 font-bold px-1 cursor-pointer';
+                    del.addEventListener('click', () => {
+                        wishes.splice(i, 1);
+                        try { localStorage.setItem(WISH_KEY, JSON.stringify(wishes)); } catch (_) {}
+                        renderWishes();
+                    });
+                    li.appendChild(sp);
+                    li.appendChild(del);
+                    wishList.appendChild(li);
+                });
+            }
+
+            wishForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const val = wishInput.value.trim();
+                if (!val) return;
+                wishes.unshift(val);
+                try { localStorage.setItem(WISH_KEY, JSON.stringify(wishes)); } catch (_) {}
+                renderWishes();
+                wishInput.value = '';
+            });
+            renderWishes();
+
+            /* PESTAÑA 5: MICHI NARANJA + RETOS SECRETOS AL AZAR + PIZARRA */
+            const michiCornerAvatar = document.getElementById('michi-corner-avatar');
+            const petMichiBtn = document.getElementById('pet-michi-btn');
+            const michiCornerMsg = document.getElementById('michi-corner-msg');
+            const purrCounter = document.getElementById('purr-counter');
+            let purrCount = 0;
+            const orangeMichiPhrases = [
+                'Purrrr... qué ricos mimitos, Nayu 🧡🐱',
+                '¡Miau! Me encantan tus caricias, ratoncita 🐾',
+                'Ronroneando de felicidad por ti 🧄',
+                '¡Más mimitos en la cabecita por favor! 🐱💜'
+            ];
+            let lastOrangePhrase = '';
+
+            function petOrangeMichi() {
+                purrCount++;
+                purrCounter.textContent = `${purrCount} ${purrCount === 1 ? 'mimo' : 'mimos'} 🧡`;
+                lastOrangePhrase = pickRandom(orangeMichiPhrases, lastOrangePhrase);
+                michiCornerMsg.textContent = lastOrangePhrase;
+                michiCornerAvatar.classList.remove('characters-hop');
+                void michiCornerAvatar.offsetWidth;
+                michiCornerAvatar.classList.add('characters-hop');
+            }
+
+            michiCornerAvatar.addEventListener('click', (e) => { e.stopPropagation(); petOrangeMichi(); });
+            petMichiBtn.addEventListener('click', (e) => { e.stopPropagation(); petOrangeMichi(); });
+
+            const penaltyBadge = document.getElementById('penalty-badge');
+            const penaltyLockedBox = document.getElementById('penalty-locked-box');
+            const penaltyText = document.getElementById('penalty-text');
+            const btnRollPenalty = document.getElementById('btn-roll-penalty');
+            let currentPenalty = '';
+
+            function revealRandomPenalty(reasonTitle) {
+                currentPenalty = pickWeightedPenalty(currentPenalty);
+                penaltyBadge.textContent = reasonTitle || '😈 ¡Te salió este reto al azar!';
+                penaltyLockedBox.classList.add('hidden');
+                penaltyText.classList.remove('hidden');
+                penaltyText.textContent = currentPenalty;
+            }
+
+            penaltyLockedBox.addEventListener('click', (e) => {
+                e.stopPropagation();
+                revealRandomPenalty('😈 ¡Reto descubierto al azar!');
+            });
+
+            penaltyLockedBox.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    revealRandomPenalty('😈 ¡Reto descubierto al azar!');
+                }
+            });
+
+            btnRollPenalty.addEventListener('click', (e) => {
+                e.stopPropagation();
+                revealRandomPenalty('😈 ¡Nuevo reto al azar!');
+            });
+
+            // Juego 1: Atrapa los quesitos
+            const gameArena = document.getElementById('game-arena');
+            const btnStartGame = document.getElementById('btn-start-game');
+            const gameScoreEl = document.getElementById('game-score');
+            const gameTimeEl = document.getElementById('game-time');
+            const gameStatusText = document.getElementById('game-status-text');
+            let gameRunning = false;
+            let gameScore = 0;
+            let gameTimeLeft = 22;
+            let gameTimerInt = null;
+            let spawnInt = null;
+
+            function spawnGameTarget() {
+                if (!gameRunning) return;
+                const t = document.createElement('button');
+                t.type = 'button';
+                const pool = [{ icon: '🧀', pts: 3 }, { icon: '💜', pts: 4 }, { icon: '🐭', pts: 5 }];
+                const picked = pool[Math.floor(Math.random() * pool.length)];
+                t.textContent = picked.icon;
+                t.className = 'game-target absolute text-2xl sm:text-3xl select-none cursor-pointer';
+                const maxX = Math.max(20, gameArena.clientWidth - 44);
+                const maxY = Math.max(20, gameArena.clientHeight - 44);
+                t.style.left = `${8 + Math.random() * (maxX - 8)}px`;
+                t.style.top = `${8 + Math.random() * (maxY - 8)}px`;
+                t.addEventListener('pointerdown', (e) => {
+                    e.stopPropagation();
+                    if (!gameRunning) return;
+                    gameScore += picked.pts;
+                    gameScoreEl.textContent = String(gameScore);
+                    t.remove();
+                });
+                gameArena.appendChild(t);
+                setTimeout(() => { if (t.parentNode) t.remove(); }, 1150);
+            }
+
+            function startMiniGame() {
+                gameRunning = true;
+                gameScore = 0;
+                gameTimeLeft = 22;
+                gameScoreEl.textContent = '0';
+                gameTimeEl.textContent = '22';
+                gameStatusText.textContent = '¡Rápido! Necesitas mínimo 60 puntos para salvarte del reto secreto.';
+                gameArena.innerHTML = '';
+                spawnGameTarget();
+                spawnInt = setInterval(spawnGameTarget, 420);
+                gameTimerInt = setInterval(() => {
+                    gameTimeLeft--;
+                    gameTimeEl.textContent = String(Math.max(0, gameTimeLeft));
+                    if (gameTimeLeft <= 0) {
+                        gameRunning = false;
+                        clearInterval(gameTimerInt);
+                        clearInterval(spawnInt);
+                        gameArena.innerHTML = '';
+
+                        if (gameScore >= 60) {
+                            gameStatusText.textContent = `¡Te salvaste con ${gameScore} puntos, ratoncita! 🎉🧀`;
+                        } else {
+                            gameStatusText.textContent = `Hiciste ${gameScore} pts (mínimo era 60). ¡Perdiste! Mira tu reto arriba 😈`;
+                            revealRandomPenalty('😈 ¡Perdiste en los quesitos! Te toca:');
+                        }
+
+                        const again = document.createElement('button');
+                        again.type = 'button';
+                        again.className = 'px-5 py-2.5 rounded-full bg-purple-800 hover:bg-purple-900 text-white text-xs sm:text-sm font-bold cursor-pointer';
+                        again.textContent = '🔄 Jugar otra vez';
+                        again.addEventListener('click', startMiniGame);
+                        gameArena.appendChild(again);
+                    }
+                }, 1000);
+            }
+            btnStartGame.addEventListener('click', startMiniGame);
+
+            // Juego 2: Memorama
+            const memoryGrid = document.getElementById('memory-grid');
+            const memoryTriesEl = document.getElementById('memory-tries');
+            const memoryStatus = document.getElementById('memory-status');
+            const btnResetMemory = document.getElementById('btn-reset-memory');
+            const memorySymbols = ['🐭', '🐱', '🧀', '💜', '🦋', '🍓'];
+            let memoryDeck = [];
+            let flippedCards = [];
+            let matchedCount = 0;
+            let memoryTries = 0;
+            let lockMemory = false;
+
+            function setupMemoryGame() {
+                memoryDeck = shuffleArray([...memorySymbols, ...memorySymbols]).map((sym, idx) => ({
+                    id: idx,
+                    sym,
+                    flipped: false,
+                    matched: false
+                }));
+                flippedCards = [];
+                matchedCount = 0;
+                memoryTries = 0;
+                lockMemory = false;
+                memoryTriesEl.textContent = '0';
+                memoryStatus.textContent = 'Encuentra las 6 parejas en 10 intentos o menos para salvarte del reto.';
+                renderMemoryBoard();
+            }
+
+            function renderMemoryBoard() {
+                memoryGrid.innerHTML = '';
+                memoryDeck.forEach((card, idx) => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    const isRevealed = card.flipped || card.matched;
+                    btn.className = `memory-card h-12 rounded-xl border font-bold text-xl flex items-center justify-center cursor-pointer ${
+                        card.matched
+                            ? 'bg-purple-200 border-purple-400 text-purple-950'
+                            : isRevealed
+                                ? 'bg-white border-fuchsia-400 text-purple-950'
+                                : 'bg-gradient-to-br from-purple-700 to-fuchsia-600 border-purple-800 text-white'
+                    }`;
+                    btn.textContent = isRevealed ? card.sym : '💜';
+
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (lockMemory || card.flipped || card.matched) return;
+                        card.flipped = true;
+                        flippedCards.push({ card, idx });
+                        renderMemoryBoard();
+
+                        if (flippedCards.length === 2) {
+                            memoryTries++;
+                            memoryTriesEl.textContent = String(memoryTries);
+                            lockMemory = true;
+
+                            const [a, b] = flippedCards;
+                            if (a.card.sym === b.card.sym) {
+                                a.card.matched = true;
+                                b.card.matched = true;
+                                matchedCount++;
+                                flippedCards = [];
+                                lockMemory = false;
+                                renderMemoryBoard();
+
+                                if (matchedCount === memorySymbols.length) {
+                                    if (memoryTries <= 10) {
+                                        memoryStatus.textContent = `¡Ganaste en ${memoryTries} intentos! Te salvaste del reto 🎉`;
+                                    } else {
+                                        memoryStatus.textContent = `Lo lograste en ${memoryTries} intentos (pasaste de 10). ¡Perdiste! 😈`;
+                                        revealRandomPenalty('😈 ¡Pasaste de 10 intentos! Te toca:');
+                                    }
+                                }
+                            } else {
+                                setTimeout(() => {
+                                    a.card.flipped = false;
+                                    b.card.flipped = false;
+                                    flippedCards = [];
+                                    lockMemory = false;
+                                    renderMemoryBoard();
+                                }, 600);
+                            }
+                        }
+                    });
+
+                    memoryGrid.appendChild(btn);
+                });
+            }
+
+            btnResetMemory.addEventListener('click', (e) => {
+                e.stopPropagation();
+                setupMemoryGame();
+            });
+            setupMemoryGame();
+
+            // Pizarrita creativa
+            const drawPad = document.getElementById('draw-pad');
+            const drawCtx = drawPad.getContext('2d');
+            const btnUndoPad = document.getElementById('btn-undo-pad');
+            const btnClearPad = document.getElementById('btn-clear-pad');
+            const btnSavePad = document.getElementById('btn-save-pad');
+            const colorDots = document.querySelectorAll('.color-dot');
+            const sizeDots = document.querySelectorAll('.size-dot');
+            const stampBtns = document.querySelectorAll('.stamp-btn');
+
+            let strokeColor = '#7e22ce';
+            let strokeWidth = 5;
+            let activeStamp = '';
+            let isDrawing = false;
+            const drawHistory = [];
+
+            function savePadSnapshot() {
+                if (!drawPad.width || !drawPad.height) return;
+                if (drawHistory.length > 12) drawHistory.shift();
+                drawHistory.push(drawPad.toDataURL());
+            }
+
+            function fillPadBackground() {
+                drawCtx.save();
+                drawCtx.fillStyle = '#faf5ff';
+                drawCtx.fillRect(0, 0, drawPad.clientWidth, drawPad.clientHeight);
+                drawCtx.restore();
+            }
+
+            function resizeDrawPad() {
+                if (!drawPad || drawPad.clientWidth === 0) return;
+                const prevData = drawPad.width > 0 ? drawPad.toDataURL() : null;
+                const padDpr = Math.min(window.devicePixelRatio || 1, 1.5);
+                drawPad.width = Math.floor(drawPad.clientWidth * padDpr);
+                drawPad.height = Math.floor(drawPad.clientHeight * padDpr);
+                drawCtx.setTransform(padDpr, 0, 0, padDpr, 0, 0);
+                drawCtx.lineCap = 'round';
+                drawCtx.lineJoin = 'round';
+                fillPadBackground();
+
+                if (prevData) {
+                    const img = new Image();
+                    img.onload = () => {
+                        drawCtx.drawImage(img, 0, 0, drawPad.clientWidth, drawPad.clientHeight);
+                    };
+                    img.src = prevData;
+                }
+            }
+            window.addEventListener('resize', resizeDrawPad);
+
+            drawPad.addEventListener('pointerdown', (e) => {
+                const rect = drawPad.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                savePadSnapshot();
+
+                if (activeStamp) {
+                    drawCtx.save();
+                    drawCtx.font = '26px sans-serif';
+                    drawCtx.textAlign = 'center';
+                    drawCtx.textBaseline = 'middle';
+                    drawCtx.fillText(activeStamp, x, y);
+                    drawCtx.restore();
+                    return;
+                }
+
+                isDrawing = true;
+                drawPad.setPointerCapture(e.pointerId);
+                drawCtx.strokeStyle = strokeColor;
+                drawCtx.lineWidth = strokeWidth;
+                drawCtx.beginPath();
+                drawCtx.moveTo(x, y);
+                drawCtx.lineTo(x + 0.1, y + 0.1);
+                drawCtx.stroke();
+            });
+
+            drawPad.addEventListener('pointermove', (e) => {
+                if (!isDrawing || activeStamp) return;
+                const rect = drawPad.getBoundingClientRect();
+                drawCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+                drawCtx.stroke();
+            });
+
+            drawPad.addEventListener('pointerup', () => { isDrawing = false; });
+            drawPad.addEventListener('pointercancel', () => { isDrawing = false; });
+
+            btnUndoPad.addEventListener('click', () => {
+                const last = drawHistory.pop();
+                if (!last) {
+                    fillPadBackground();
+                    return;
+                }
+                const img = new Image();
+                img.onload = () => {
+                    fillPadBackground();
+                    drawCtx.drawImage(img, 0, 0, drawPad.clientWidth, drawPad.clientHeight);
+                };
+                img.src = last;
+            });
+
+            btnClearPad.addEventListener('click', () => {
+                savePadSnapshot();
+                fillPadBackground();
+            });
+
+            btnSavePad.addEventListener('click', () => {
+                const link = document.createElement('a');
+                link.download = 'dibujo-de-nayu.png';
+                link.href = drawPad.toDataURL('image/png');
+                link.click();
+            });
+
+            colorDots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    strokeColor = dot.dataset.color || '#7e22ce';
+                    activeStamp = '';
+                    stampBtns.forEach(sb => {
+                        sb.classList.remove('active', 'bg-purple-800', 'text-white');
+                        if (sb.dataset.stamp === '') sb.classList.add('active', 'bg-purple-800', 'text-white');
+                        else sb.classList.add('bg-purple-100');
+                    });
+                    colorDots.forEach(d => d.classList.remove('ring-2', 'ring-offset-1', 'ring-purple-500'));
+                    dot.classList.add('ring-2', 'ring-offset-1', 'ring-purple-500');
+                });
+            });
+
+            sizeDots.forEach(sDot => {
+                sDot.addEventListener('click', () => {
+                    strokeWidth = parseFloat(sDot.dataset.size) || 5;
+                    sizeDots.forEach(s => s.classList.remove('active', 'bg-purple-100'));
+                    sDot.classList.add('active', 'bg-purple-100');
+                });
+            });
+
+            stampBtns.forEach(sBtn => {
+                sBtn.addEventListener('click', () => {
+                    activeStamp = sBtn.dataset.stamp || '';
+                    stampBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-purple-800', 'text-white');
+                        b.classList.add('bg-purple-100', 'text-purple-900');
+                    });
+                    sBtn.classList.add('active', 'bg-purple-800', 'text-white');
+                    sBtn.classList.remove('bg-purple-100', 'text-purple-900');
+                });
+            });
+
+            /* PESTAÑA 6: RECUERDOS (DESBLOQUEA SUBIDA ILIMITADA TRAS 2 FOTOS) */
+            const polaroidInner = document.getElementById('polaroid-inner');
+            const polaroidUploadPlaceholder = document.getElementById('polaroid-upload-placeholder');
+            const placeholderEmoji = document.getElementById('placeholder-emoji');
+            const placeholderPrompt = document.getElementById('placeholder-prompt');
+            const polaroidPhotoFrame = document.getElementById('polaroid-photo-frame');
+            const polaroidImg = document.getElementById('polaroid-img');
+            const polaroidCounter = document.getElementById('polaroid-counter');
+            const polaroidFrontCaption = document.getElementById('polaroid-front-caption');
+            const polaroidFlipHint = document.getElementById('polaroid-flip-hint');
+            const polaroidLockedHint = document.getElementById('polaroid-locked-hint');
+            const polaroidSlotNum = document.getElementById('polaroid-slot-num');
+            const polaroidBackFace = document.getElementById('polaroid-back-face');
+            const polaroidBackNote = document.getElementById('polaroid-back-note');
+
+            const flipPolaroidBtn = document.getElementById('flip-polaroid-btn');
+            const fullscreenPhotoBtn = document.getElementById('fullscreen-photo-btn');
+            const prevPhotoBtn = document.getElementById('prev-photo-btn');
+            const nextPhotoBtn = document.getElementById('next-photo-btn');
+            const customPhotoInput = document.getElementById('custom-photo-input');
+            const extraPhotoInput = document.getElementById('extra-photo-input');
+            const addMorePhotosBtn = document.getElementById('add-more-photos-btn');
+
+            const lightboxModal = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            const closeLightboxBtn = document.getElementById('close-lightbox-btn');
+
+            const extraCaptionsPool = [
+                { caption: 'Otro recuerdo lindo contigo 💜', backNote: '“Cada fotito contigo se vuelve mi favorita al instante, ratoncita. 💜' },
+                { caption: 'Me encantas demasiado, Nayu ⭐', backNote: '“Guardo este momento con todo mi cariño para siempre. 🐭⭐' },
+                { caption: 'Contigo todo es más bonito 🌸', backNote: '“Qué suerte la mía de poder compartir momentos así contigo. 🌸💜' },
+                { caption: 'Mi ratoncita preciosa 🐭💜', backNote: '“Nunca me canso de verte sonreír así de lindo. ⭐' }
+            ];
+
+            const albumPhotos = [
+                {
+                    uploaded: false,
+                    src: '',
+                    placeholderEmoji: '📸',
+                    placeholderPrompt: 'Sube una foto nuestra juntos 📸',
+                    caption: 'Mi lugar favorito siempre es contigo 💜',
+                    backNote: '“Contigo hasta los días normales se sienten como mi recuerdo favorito, ratoncita. 💜'
+                },
+                {
+                    uploaded: false,
+                    src: '',
+                    placeholderEmoji: '🤝',
+                    placeholderPrompt: 'Sube una foto de nosotros agarrándonos las manos 🤝💜',
+                    caption: 'De tu mano todo se siente más bonito 🐭⭐',
+                    backNote: '“Me encanta caminar contigo y sentir tu mano junto a la mía, Nayu. ⭐'
+                }
+            ];
+
+            let photoIdx = 0;
+            let isPolaroidFlipped = false;
+
+            function checkUnlimitedPhotosUnlocked() {
+                const firstTwoUploaded = albumPhotos.length >= 2 && albumPhotos[0].uploaded && albumPhotos[1].uploaded;
+                if (firstTwoUploaded) {
+                    addMorePhotosBtn.classList.remove('hidden');
+                }
+            }
+
+            function renderPolaroid() {
+                const current = albumPhotos[photoIdx];
+                polaroidSlotNum.textContent = `${photoIdx + 1} / ${albumPhotos.length}`;
+                checkUnlimitedPhotosUnlocked();
+
+                if (!current.uploaded) {
+                    polaroidUploadPlaceholder.classList.remove('hidden');
+                    placeholderEmoji.textContent = current.placeholderEmoji;
+                    placeholderPrompt.textContent = current.placeholderPrompt;
+
+                    polaroidPhotoFrame.classList.add('hidden');
+                    polaroidFrontCaption.classList.add('hidden');
+                    polaroidFlipHint.classList.add('hidden');
+                    polaroidLockedHint.classList.remove('hidden');
+
+                    flipPolaroidBtn.classList.add('hidden');
+                    fullscreenPhotoBtn.classList.add('hidden');
+                } else {
+                    polaroidUploadPlaceholder.classList.add('hidden');
+                    polaroidPhotoFrame.classList.remove('hidden');
+                    polaroidImg.src = current.src;
+                    polaroidCounter.textContent = `${photoIdx + 1} / ${albumPhotos.length}`;
+
+                    polaroidFrontCaption.textContent = current.caption;
+                    polaroidBackNote.textContent = current.backNote;
+
+                    polaroidFrontCaption.classList.remove('hidden');
+                    polaroidFlipHint.classList.remove('hidden');
+                    polaroidLockedHint.classList.add('hidden');
+
+                    flipPolaroidBtn.classList.remove('hidden');
+                    fullscreenPhotoBtn.classList.remove('hidden');
+                }
+            }
+            renderPolaroid();
+
+            function togglePolaroidFlip() {
+                if (!albumPhotos[photoIdx].uploaded) return;
+                isPolaroidFlipped = !isPolaroidFlipped;
+                polaroidInner.classList.toggle('flipped', isPolaroidFlipped);
+            }
+
+            polaroidPhotoFrame.addEventListener('click', (e) => {
+                e.stopPropagation();
+                togglePolaroidFlip();
+            });
+            polaroidBackFace.addEventListener('click', (e) => {
+                e.stopPropagation();
+                togglePolaroidFlip();
+            });
+            flipPolaroidBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                togglePolaroidFlip();
+            });
+
+            prevPhotoBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isPolaroidFlipped = false;
+                polaroidInner.classList.remove('flipped');
+                photoIdx = (photoIdx - 1 + albumPhotos.length) % albumPhotos.length;
+                renderPolaroid();
+            });
+
+            nextPhotoBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isPolaroidFlipped = false;
+                polaroidInner.classList.remove('flipped');
+                photoIdx = (photoIdx + 1) % albumPhotos.length;
+                renderPolaroid();
+            });
+
+            customPhotoInput.addEventListener('change', (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    albumPhotos[photoIdx].src = ev.target.result;
+                    albumPhotos[photoIdx].uploaded = true;
+                    isPolaroidFlipped = false;
+                    polaroidInner.classList.remove('flipped');
+                    renderPolaroid();
+                    customPhotoInput.value = '';
+                };
+                reader.readAsDataURL(file);
+            });
+
+            addMorePhotosBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                extraPhotoInput.click();
+            });
+
+            extraPhotoInput.addEventListener('change', (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const randomMeta = extraCaptionsPool[albumPhotos.length % extraCaptionsPool.length];
+                    albumPhotos.push({
+                        uploaded: true,
+                        src: ev.target.result,
+                        placeholderEmoji: '📸',
+                        placeholderPrompt: 'Sube otra fotito 📸',
+                        caption: randomMeta.caption,
+                        backNote: randomMeta.backNote
+                    });
+                    photoIdx = albumPhotos.length - 1;
+                    isPolaroidFlipped = false;
+                    polaroidInner.classList.remove('flipped');
+                    renderPolaroid();
+                    extraPhotoInput.value = '';
+                };
+                reader.readAsDataURL(file);
+            });
+
+            fullscreenPhotoBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const current = albumPhotos[photoIdx];
+                if (!current.uploaded) return;
+                lightboxImg.src = current.src;
+                lightboxCaption.textContent = current.caption;
+                lightboxModal.classList.remove('hidden');
+                lightboxModal.classList.add('flex');
+            });
+
+            closeLightboxBtn.addEventListener('click', () => {
+                lightboxModal.classList.add('hidden');
+                lightboxModal.classList.remove('flex');
+            });
+
+            /* ESCENA 3: CIELO LILA CLEAN, MINIMALISTA Y FLUIDO (60 FPS) */
+            const nightSkyBtn = document.getElementById('night-sky-btn');
+            const skyStage = document.getElementById('sky-stage');
+            const skyHintBadge = document.getElementById('sky-hint-badge');
+            const closeSkyBtn = document.getElementById('close-sky-btn');
+            const fireworksNayuBtn = document.getElementById('fireworks-nayu-btn');
+            const spawnButterfliesBtn = document.getElementById('spawn-butterflies-btn');
+            const spawnFirefliesBtn = document.getElementById('spawn-fireflies-btn');
+            const completeHeartBtn = document.getElementById('complete-heart-btn');
+            const nextSkyQuoteBtn = document.getElementById('next-sky-quote-btn');
+            const skyQuote = document.getElementById('sky-quote');
+
+            let currentSkyQuote = pickRandom(skyQuotesList);
+            skyQuote.textContent = currentSkyQuote;
+
+            let skyFrame = null;
+            let heartCompletedTriggered = false;
+            let heartGlowPhase = 0;
+            let nayuCenterReveal = 0;
+
+            const bgStars = [];
+            const userStars = [];
+            const heartNodes = [];
+            const shootingStars = [];
+            const butterflies = [];
+            const fireflies = [];
+            const skyRockets = [];
+            const skyFireworkSparks = [];
+
+            function createGlowSprite(size, innerColor, midColor) {
+                const c = document.createElement('canvas');
+                c.width = size;
+                c.height = size;
+                const ctx = c.getContext('2d');
+                const half = size / 2;
+                const grad = ctx.createRadialGradient(half, half, 0.5, half, half, half - 1);
+                grad.addColorStop(0, '#ffffff');
+                grad.addColorStop(0.25, innerColor);
+                grad.addColorStop(0.6, midColor);
+                grad.addColorStop(1, 'rgba(0,0,0,0)');
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, size, size);
+                return c;
+            }
+
+            const warmFireflySprite = createGlowSprite(26, 'rgba(254, 240, 138, 0.95)', 'rgba(250, 204, 21, 0.22)');
+            const lilacFireflySprite = createGlowSprite(26, 'rgba(245, 208, 254, 0.95)', 'rgba(217, 70, 239, 0.22)');
+
+            const sparkSprites = [
+                createGlowSprite(18, 'rgba(240, 171, 252, 1)', 'rgba(217, 70, 239, 0.35)'),
+                createGlowSprite(18, 'rgba(244, 114, 182, 1)', 'rgba(219, 39, 119, 0.35)'),
+                createGlowSprite(18, 'rgba(254, 240, 138, 1)', 'rgba(234, 179, 8, 0.35)'),
+                createGlowSprite(18, 'rgba(216, 180, 254, 1)', 'rgba(147, 51, 234, 0.35)')
+            ];
+
+            for (let i = 0; i < 65; i++) {
+                bgStars.push({
+                    x: Math.random(),
+                    y: Math.random(),
+                    r: Math.random() * 1.4 + 0.4,
+                    phase: Math.random() * Math.PI * 2,
+                    speed: Math.random() * 0.03 + 0.012
+                });
+            }
+
+            function addButterflies(count = 4) {
+                const colors = ['#f0abfc', '#e9d5ff', '#fde68a', '#f9a8d4'];
+                for (let i = 0; i < count; i++) {
+                    butterflies.push({
+                        x: Math.random() * width,
+                        y: height * (0.22 + Math.random() * 0.48),
+                        vx: (Math.random() - 0.5) * 1.1 + (Math.random() > 0.5 ? 0.45 : -0.45),
+                        vy: (Math.random() - 0.5) * 0.5,
+                        wingPhase: Math.random() * Math.PI * 2,
+                        size: 6.5 + Math.random() * 2.5,
+                        color: colors[Math.floor(Math.random() * colors.length)]
+                    });
+                }
+                if (butterflies.length > 10) butterflies.splice(0, butterflies.length - 10);
+            }
+
+            function addFireflies(count = 8) {
+                for (let i = 0; i < count; i++) {
+                    fireflies.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height * 0.8,
+                        angle: Math.random() * Math.PI * 2,
+                        speed: 0.3 + Math.random() * 0.45,
+                        pulse: Math.random() * Math.PI * 2,
+                        scale: 0.45 + Math.random() * 0.35,
+                        warm: Math.random() > 0.35
+                    });
+                }
+                if (fireflies.length > 22) fireflies.splice(0, fireflies.length - 22);
+            }
+
+            function getNayuWordPoints() {
+                const off = document.createElement('canvas');
+                const ow = Math.min(540, Math.floor(width * 0.88));
+                const oh = 160;
+                off.width = ow;
+                off.height = oh;
+                const octx = off.getContext('2d');
+
+                const fontSize = Math.floor(ow * 0.33);
+                octx.fillStyle = '#ffffff';
+                octx.textAlign = 'center';
+                octx.textBaseline = 'middle';
+                octx.font = `900 ${fontSize}px 'Quicksand', sans-serif`;
+                octx.fillText('NAYU', ow / 2, oh / 2);
+
+                const imgData = octx.getImageData(0, 0, ow, oh).data;
+                const pts = [];
+                const step = ow < 380 ? 5 : 6;
+                const offsetX = (width - ow) / 2;
+                const offsetY = height * 0.21 - oh / 2;
+
+                for (let y = 0; y < oh; y += step) {
+                    for (let x = 0; x < ow; x += step) {
+                        if (imgData[(y * ow + x) * 4 + 3] > 150) {
+                            pts.push({ x: offsetX + x, y: offsetY + y });
+                        }
+                    }
+                }
+                return pts;
+            }
+
+            function launchNayuFireworkShow() {
+                skyRockets.push({
+                    x: width * 0.5,
+                    y: height,
+                    vx: 0,
+                    vy: -12,
+                    targetY: height * 0.21,
+                    isNayuWord: true
+                });
+
+                [-0.28, 0.28].forEach((offset, idx) => {
+                    setTimeout(() => {
+                        if (!isSkyActive) return;
+                        skyRockets.push({
+                            x: width * (0.5 + offset),
+                            y: height,
+                            vx: (Math.random() - 0.5) * 1.0,
+                            vy: -10.5 - Math.random() * 1.4,
+                            targetY: height * (0.16 + Math.random() * 0.1),
+                            isNayuWord: false
+                        });
+                    }, 150 + idx * 140);
+                });
+            }
+
+            function explodeSkyFirework(rocket) {
+                if (rocket.isNayuWord) {
+                    const wordPoints = getNayuWordPoints();
+                    for (let i = 0; i < wordPoints.length; i++) {
+                        const pt = wordPoints[i];
+                        skyFireworkSparks.push({
+                            x: rocket.x + (Math.random() - 0.5) * 20,
+                            y: rocket.y + (Math.random() - 0.5) * 20,
+                            tx: pt.x,
+                            ty: pt.y,
+                            mode: 'word',
+                            life: 1.35,
+                            decay: 0.007 + Math.random() * 0.0025,
+                            size: 13 + Math.random() * 4,
+                            sprite: sparkSprites[i % sparkSprites.length],
+                            twinkle: Math.random() * Math.PI * 2
+                        });
+                    }
+                } else {
+                    for (let i = 0; i < 28; i++) {
+                        const ang = (Math.PI * 2 * i) / 28;
+                        const spd = 2.0 + Math.random() * 3.5;
+                        skyFireworkSparks.push({
+                            x: rocket.x,
+                            y: rocket.y,
+                            vx: Math.cos(ang) * spd,
+                            vy: Math.sin(ang) * spd,
+                            mode: 'burst',
+                            life: 1,
+                            decay: 0.017 + Math.random() * 0.008,
+                            size: 12 + Math.random() * 5,
+                            sprite: sparkSprites[i % sparkSprites.length],
+                            twinkle: 0
+                        });
+                    }
+                }
+            }
+
+            function buildHeartConstellation() {
+                heartNodes.length = 0;
+                const total = 24;
+                const cx = width * 0.5;
+                const cy = height * 0.51;
+                const scale = Math.min(width, height) * 0.015;
+
+                for (let i = 0; i < total; i++) {
+                    const t = (Math.PI * 2 * i) / total;
+                    const hx = 16 * Math.pow(Math.sin(t), 3);
+                    const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+                    heartNodes.push({
+                        x: cx + hx * scale,
+                        y: cy + hy * scale,
+                        lit: false,
+                        pulse: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+
+            function triggerHeartCompletedCelebration() {
+                if (heartCompletedTriggered) return;
+                heartCompletedTriggered = true;
+                skyHintBadge.textContent = '💜 ¡Corazón completo para Nayu! ⭐';
+                skyQuote.textContent = '“¡Completaste el corazón! Así brillas en mi vida, Nayu 💜';
+                launchNayuFireworkShow();
+                spawnShootingStar();
+            }
+
+            function checkHeartComplete() {
+                if (heartNodes.length > 0 && heartNodes.every(n => n.lit)) {
+                    triggerHeartCompletedCelebration();
+                }
+            }
+
+            function spawnShootingStar() {
+                shootingStars.push({
+                    x: Math.random() * width * 0.9 + width * 0.1,
+                    y: Math.random() * height * 0.32,
+                    vx: -(Math.random() * 8 + 7),
+                    vy: Math.random() * 4.5 + 3.5,
+                    life: 1
+                });
+            }
+
+            function lightStars(count = 4, tx = null, ty = null) {
+                if (tx !== null && ty !== null) {
+                    userStars.push({ x: tx, y: ty, r: Math.random() * 2 + 2.2, alpha: 1 });
+                    if (userStars.length > 24) userStars.shift();
+                }
+                let lit = 0;
+                for (let i = 0; i < heartNodes.length; i++) {
+                    if (!heartNodes[i].lit) {
+                        heartNodes[i].lit = true;
+                        lit++;
+                        if (lit >= count) break;
+                    }
+                }
+                checkHeartComplete();
+            }
+
+            function drawMinimalButterfly(ctx, b) {
+                b.wingPhase += 0.19;
+                b.x += b.vx;
+                b.y += b.vy + Math.sin(b.wingPhase * 0.25) * 0.3;
+
+                if (b.x < -25) b.x = width + 25;
+                if (b.x > width + 25) b.x = -25;
+                if (b.y < 38) b.vy = Math.abs(b.vy);
+                if (b.y > height * 0.74) b.vy = -Math.abs(b.vy);
+
+                const flap = Math.abs(Math.cos(b.wingPhase)) * 0.75 + 0.25;
+                const heading = Math.atan2(b.vy, b.vx);
+                const s = b.size;
+
+                ctx.save();
+                ctx.translate(b.x, b.y);
+                ctx.rotate(heading + Math.PI / 2);
+                ctx.globalAlpha = 0.85;
+                ctx.fillStyle = b.color;
+
+                ctx.beginPath();
+                ctx.ellipse(-s * 0.58 * flap, -s * 0.22, s * 0.65 * flap, s * 0.42, -0.35, 0, Math.PI * 2);
+                ctx.ellipse(s * 0.58 * flap, -s * 0.22, s * 0.65 * flap, s * 0.42, 0.35, 0, Math.PI * 2);
+                ctx.ellipse(-s * 0.42 * flap, s * 0.35, s * 0.44 * flap, s * 0.3, 0.35, 0, Math.PI * 2);
+                ctx.ellipse(s * 0.42 * flap, s * 0.35, s * 0.44 * flap, s * 0.3, -0.35, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            function skyLoop() {
+                if (!isSkyActive) return;
+                skyCtx.clearRect(0, 0, width, height);
+
+                for (let i = 0; i < bgStars.length; i++) {
+                    const s = bgStars[i];
+                    s.phase += s.speed;
+                    const alpha = 0.22 + Math.abs(Math.sin(s.phase)) * 0.65;
+                    skyCtx.fillStyle = `rgba(245, 208, 254, ${alpha.toFixed(2)})`;
+                    skyCtx.beginPath();
+                    skyCtx.arc(s.x * width, s.y * height, s.r, 0, Math.PI * 2);
+                    skyCtx.fill();
+                }
+
+                for (let i = 0; i < fireflies.length; i++) {
+                    const f = fireflies[i];
+                    f.angle += (Math.random() - 0.5) * 0.12;
+                    f.pulse += 0.055;
+                    f.x += Math.cos(f.angle) * f.speed;
+                    f.y += Math.sin(f.angle) * f.speed;
+                    if (f.x < 0) f.x = width;
+                    if (f.x > width) f.x = 0;
+                    if (f.y < 0) f.y = height * 0.8;
+                    if (f.y > height * 0.8) f.y = 0;
+
+                    const glow = 0.3 + Math.abs(Math.sin(f.pulse)) * 0.65;
+                    const sprite = f.warm ? warmFireflySprite : lilacFireflySprite;
+                    const drawSize = 20 * f.scale;
+                    skyCtx.globalAlpha = glow;
+                    skyCtx.drawImage(sprite, f.x - drawSize * 0.5, f.y - drawSize * 0.5, drawSize, drawSize);
+                }
+                skyCtx.globalAlpha = 1;
+
+                for (let i = 0; i < butterflies.length; i++) {
+                    drawMinimalButterfly(skyCtx, butterflies[i]);
+                }
+
+                heartGlowPhase += 0.048;
+                const beatScale = heartCompletedTriggered ? 1 + Math.sin(heartGlowPhase) * 0.032 : 1;
+                const cx = width * 0.5;
+                const cy = height * 0.51;
+
+                skyCtx.save();
+                if (heartCompletedTriggered) {
+                    skyCtx.translate(cx, cy);
+                    skyCtx.scale(beatScale, beatScale);
+                    skyCtx.translate(-cx, -cy);
+
+                    const hGrad = skyCtx.createRadialGradient(cx, cy, 8, cx, cy, Math.min(width, height) * 0.26);
+                    hGrad.addColorStop(0, 'rgba(232, 121, 249, 0.24)');
+                    hGrad.addColorStop(0.65, 'rgba(168, 85, 247, 0.08)');
+                    hGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                    skyCtx.fillStyle = hGrad;
+                    skyCtx.beginPath();
+                    skyCtx.arc(cx, cy, Math.min(width, height) * 0.26, 0, Math.PI * 2);
+                    skyCtx.fill();
+                }
+
+                skyCtx.strokeStyle = heartCompletedTriggered ? 'rgba(245, 208, 254, 0.85)' : 'rgba(232, 121, 249, 0.5)';
+                skyCtx.lineWidth = heartCompletedTriggered ? 2.3 : 1.6;
+                for (let i = 0; i < heartNodes.length; i++) {
+                    const curr = heartNodes[i];
+                    const next = heartNodes[(i + 1) % heartNodes.length];
+                    if (curr.lit && next.lit) {
+                        skyCtx.beginPath();
+                        skyCtx.moveTo(curr.x, curr.y);
+                        skyCtx.lineTo(next.x, next.y);
+                        skyCtx.stroke();
+                    }
+                }
+
+                for (let i = 0; i < heartNodes.length; i++) {
+                    const n = heartNodes[i];
+                    n.pulse += 0.055;
+                    if (n.lit) {
+                        const r = 3.5 + Math.sin(n.pulse) * 1.0;
+                        skyCtx.fillStyle = 'rgba(240, 171, 252, 0.32)';
+                        skyCtx.beginPath();
+                        skyCtx.arc(n.x, n.y, r * 2.0, 0, Math.PI * 2);
+                        skyCtx.fill();
+
+                        skyCtx.fillStyle = '#ffffff';
+                        skyCtx.beginPath();
+                        skyCtx.arc(n.x, n.y, r, 0, Math.PI * 2);
+                        skyCtx.fill();
+                    }
+                }
+
+                if (heartCompletedTriggered) {
+                    nayuCenterReveal = Math.min(1, nayuCenterReveal + 0.035);
+                    skyCtx.save();
+                    skyCtx.globalAlpha = nayuCenterReveal;
+                    skyCtx.textAlign = 'center';
+                    skyCtx.textBaseline = 'middle';
+
+                    const titleSize = Math.max(24, Math.min(38, Math.floor(width * 0.072)));
+                    skyCtx.font = `700 ${titleSize}px 'Dancing Script', cursive`;
+                    skyCtx.fillStyle = '#ffffff';
+                    skyCtx.fillText('Nayu 💜', cx, cy - 4);
+
+                    const subSize = Math.max(12, Math.min(16, Math.floor(width * 0.03)));
+                    skyCtx.font = `700 ${subSize}px 'Quicksand', sans-serif`;
+                    skyCtx.fillStyle = '#f5d0fe';
+                    skyCtx.fillText('Mi ratoncita ⭐', cx, cy + titleSize * 0.68);
+                    skyCtx.restore();
+                }
+                skyCtx.restore();
+
+                for (let i = 0; i < userStars.length; i++) {
+                    const us = userStars[i];
+                    drawStar(skyCtx, us.x, us.y, us.r * 2.0, '#f5d0fe', us.alpha, 0);
+                }
+
+                for (let i = skyRockets.length - 1; i >= 0; i--) {
+                    const r = skyRockets[i];
+                    r.x += r.vx;
+                    r.y += r.vy;
+                    r.vy += 0.14;
+
+                    skyCtx.strokeStyle = 'rgba(245, 208, 254, 0.45)';
+                    skyCtx.lineWidth = 2.2;
+                    skyCtx.beginPath();
+                    skyCtx.moveTo(r.x, r.y);
+                    skyCtx.lineTo(r.x - r.vx * 3, r.y - r.vy * 3);
+                    skyCtx.stroke();
+
+                    skyCtx.fillStyle = '#ffffff';
+                    skyCtx.beginPath();
+                    skyCtx.arc(r.x, r.y, 3.2, 0, Math.PI * 2);
+                    skyCtx.fill();
+
+                    if (r.vy >= 0 || r.y <= r.targetY) {
+                        explodeSkyFirework(r);
+                        skyRockets.splice(i, 1);
+                    }
+                }
+
+                skyCtx.globalCompositeOperation = 'lighter';
+                for (let i = skyFireworkSparks.length - 1; i >= 0; i--) {
+                    const sp = skyFireworkSparks[i];
+                    if (sp.mode === 'word') {
+                        sp.x += (sp.tx - sp.x) * 0.22;
+                        sp.y += (sp.ty - sp.y) * 0.22;
+                        sp.ty += 0.04;
+                        sp.twinkle += 0.18;
+                    } else {
+                        sp.x += sp.vx;
+                        sp.y += sp.vy;
+                        sp.vy += 0.06;
+                        sp.vx *= 0.98;
+                    }
+                    sp.life -= sp.decay;
+                    if (sp.life <= 0) {
+                        skyFireworkSparks.splice(i, 1);
+                        continue;
+                    }
+
+                    const twinkleAlpha = sp.mode === 'word'
+                        ? Math.min(1, sp.life) * (0.78 + Math.abs(Math.sin(sp.twinkle)) * 0.22)
+                        : Math.min(1, sp.life);
+
+                    skyCtx.globalAlpha = Math.max(0, twinkleAlpha);
+                    skyCtx.drawImage(sp.sprite, sp.x - sp.size * 0.5, sp.y - sp.size * 0.5, sp.size, sp.size);
+                }
+                skyCtx.globalCompositeOperation = 'source-over';
+                skyCtx.globalAlpha = 1;
+
+                for (let i = shootingStars.length - 1; i >= 0; i--) {
+                    const st = shootingStars[i];
+                    st.x += st.vx;
+                    st.y += st.vy;
+                    st.life -= 0.024;
+                    if (st.life <= 0) { shootingStars.splice(i, 1); continue; }
+                    const grad = skyCtx.createLinearGradient(st.x, st.y, st.x - st.vx * 5.5, st.y - st.vy * 5.5);
+                    grad.addColorStop(0, `rgba(255, 255, 255, ${st.life})`);
+                    grad.addColorStop(0.45, `rgba(240, 171, 252, ${st.life * 0.7})`);
+                    grad.addColorStop(1, 'rgba(168, 85, 247, 0)');
+                    skyCtx.strokeStyle = grad;
+                    skyCtx.lineWidth = 2.0;
+                    skyCtx.beginPath();
+                    skyCtx.moveTo(st.x, st.y);
+                    skyCtx.lineTo(st.x - st.vx * 5.5, st.y - st.vy * 5.5);
+                    skyCtx.stroke();
+                }
+
+                if (Math.random() < 0.012) spawnShootingStar();
+                skyFrame = requestAnimationFrame(skyLoop);
+            }
+
+            nightSkyBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isSkyActive = true;
+                heartCompletedTriggered = false;
+                nayuCenterReveal = 0;
+                skyHintBadge.textContent = '⭐ Toca el cielo para iluminar el corazón, Nayu';
+
+                buildHeartConstellation();
+                userStars.length = 0;
+                butterflies.length = 0;
+                fireflies.length = 0;
+                skyRockets.length = 0;
+                skyFireworkSparks.length = 0;
+
+                addButterflies(5);
+                addFireflies(12);
+                lightStars(6);
+                skyStage.classList.remove('opacity-0', 'pointer-events-none');
+                skyLoop();
+            });
+
+            closeSkyBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isSkyActive = false;
+                cancelAnimationFrame(skyFrame);
+                skyStage.classList.add('opacity-0', 'pointer-events-none');
+            });
+
+            completeHeartBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                heartNodes.forEach(n => n.lit = true);
+                if (heartCompletedTriggered) {
+                    launchNayuFireworkShow();
+                } else {
+                    triggerHeartCompletedCelebration();
+                }
+            });
+
+            fireworksNayuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                launchNayuFireworkShow();
+            });
+
+            spawnButterfliesBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                addButterflies(4);
+            });
+
+            spawnFirefliesBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                addFireflies(8);
+            });
+
+            nextSkyQuoteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentSkyQuote = pickRandom(skyQuotesList, currentSkyQuote);
+                skyQuote.textContent = currentSkyQuote;
+                spawnShootingStar();
+            });
+
+            skyCanvas.addEventListener('pointerdown', (e) => {
+                lightStars(4, e.clientX, e.clientY);
+                if (Math.random() < 0.35) spawnShootingStar();
+            });
+        });
+    </script>
+</body>
+</html>
