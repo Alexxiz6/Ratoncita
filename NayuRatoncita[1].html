@@ -819,7 +819,7 @@
                                 </svg>
                             </button>
                             <div>
-                                <p class="text-[11px] font-bold uppercase tracking-wider text-orange-700">Tu Michi Naranja 🐱🧡</p>
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-orange-700">El Michuacan 🐱🧡</p>
                                 <p id="michi-corner-msg" class="text-xs sm:text-sm font-bold text-purple-950 leading-snug mt-0.5">
                                     Tócame la cabecita para darme mimos, Nayu.
                                 </p>
@@ -864,20 +864,20 @@
                     <div class="bg-white rounded-2xl p-4 border border-purple-100">
                         <div class="flex items-center justify-between gap-2 mb-1.5">
                             <div>
-                                <p class="text-[11px] font-bold uppercase tracking-wider text-purple-600">Juego 1  Mínimo 60 pts</p>
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-purple-600">Juego 1  Mínimo 100 pts</p>
                                 <h3 class="text-base font-bold text-purple-950">Atrapa los quesitos 🧀</h3>
                             </div>
                             <div class="flex items-center gap-1.5 text-xs font-bold">
-                                <span class="px-2.5 py-1 rounded-full bg-purple-100 text-purple-900">Puntos: <span id="game-score">0</span>/60</span>
-                                <span class="px-2.5 py-1 rounded-full bg-fuchsia-100 text-fuchsia-900"><span id="game-time">22</span>s</span>
+                                <span class="px-2.5 py-1 rounded-full bg-purple-100 text-purple-900">Puntos: <span id="game-score">0</span>/100</span>
+                                <span class="px-2.5 py-1 rounded-full bg-fuchsia-100 text-fuchsia-900"><span id="game-time">15</span>s</span>
                             </div>
                         </div>
                         <p id="game-status-text" class="text-xs text-slate-600 mb-2.5">
-                            Si haces menos de 60 puntos antes que acabe el tiempo, ¡se destapa tu reto secreto!
+                            Si haces menos de 100 puntos antes que acabe el tiempo, ¡se destapa tu reto secreto!
                         </p>
                         <div id="game-arena" class="relative w-full h-44 rounded-2xl bg-gradient-to-br from-purple-100 via-fuchsia-50 to-violet-100 border-2 border-dashed border-purple-300 overflow-hidden flex items-center justify-center">
                             <button id="btn-start-game" type="button" class="px-5 py-2.5 rounded-full bg-purple-800 hover:bg-purple-900 text-white text-xs sm:text-sm font-bold active:scale-95 transition z-10 cursor-pointer">
-                                🎮 Empezar reto (60 pts)
+                                🎮 Empezar reto (100 pts)
                             </button>
                         </div>
                     </div>
@@ -2092,13 +2092,13 @@
             function startMiniGame() {
                 gameRunning = true;
                 gameScore = 0;
-                gameTimeLeft = 22;
+                gameTimeLeft = 15;
                 gameScoreEl.textContent = '0';
-                gameTimeEl.textContent = '22';
-                gameStatusText.textContent = '¡Rápido! Necesitas mínimo 60 puntos para salvarte del reto secreto.';
+                gameTimeEl.textContent = '15';
+                gameStatusText.textContent = '¡Rápido! Necesitas mínimo 100 puntos para salvarte del reto secreto.';
                 gameArena.innerHTML = '';
                 spawnGameTarget();
-                spawnInt = setInterval(spawnGameTarget, 420);
+                spawnInt = setInterval(spawnGameTarget, 400);
                 gameTimerInt = setInterval(() => {
                     gameTimeLeft--;
                     gameTimeEl.textContent = String(Math.max(0, gameTimeLeft));
@@ -2108,10 +2108,10 @@
                         clearInterval(spawnInt);
                         gameArena.innerHTML = '';
 
-                        if (gameScore >= 60) {
+                        if (gameScore >= 100) {
                             gameStatusText.textContent = `¡Te salvaste con ${gameScore} puntos, ratoncita! 🎉🧀`;
                         } else {
-                            gameStatusText.textContent = `Hiciste ${gameScore} pts (mínimo era 60). ¡Perdiste! Mira tu reto arriba 😈`;
+                            gameStatusText.textContent = `Hiciste ${gameScore} pts (mínimo era 100). ¡Perdiste! Mira tu reto arriba 😈`;
                             revealRandomPenalty('😈 ¡Perdiste en los quesitos! Te toca:');
                         }
 
